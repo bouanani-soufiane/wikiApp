@@ -1,31 +1,38 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-3">
-    <div class="container">
-        <a class="navbar-brand" href="<?php echo URLROOT; ?>"><?php echo SITENAME; ?></a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+<nav class="bg-gray-800 p-4">
+    <div class="container mx-auto flex items-center justify-between">
+        <a class="text-white text-lg font-semibold" href="<?php echo URLROOT; ?>"><?php echo SITENAME; ?></a>
+
+        <button class="lg:hidden text-white focus:outline-none">
+            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                 xmlns="http://www.w3.org/2000/svg">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M4 6h16M4 12h16m-7 6h7"></path>
+            </svg>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarsExampleDefault">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>">Home</a>
+        <div class="hidden lg:flex lg:items-center lg:w-auto">
+            <ul class="ml-auto hidden lg:flex lg:items-center lg:w-auto space-x-4">
+                <li>
+                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>">Categories</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="<?php echo URLROOT; ?>/pages/about">About</a>
+                <li>
+                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>">Blog</a>
                 </li>
             </ul>
+        </div>
 
-            <ul class="navbar-nav ml-auto">
-                <?php if(isset($_SESSION['user_id'])) : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
+        <div class="hidden lg:flex lg:items-center lg:w-auto">
+              <ul class="ml-auto hidden lg:flex lg:items-center lg:w-auto space-x-4 ">
+                <?php if (isset($_SESSION['user_id'])) : ?>
+                    <li>
+                        <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/users/logout">Logout</a>
                     </li>
                 <?php else : ?>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/users/register">Register</a>
+                    <li>
+                        <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/users/register">Register</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="<?php echo URLROOT; ?>/users/login">Login</a>
+                    <li>
+                        <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/users/login">Login</a>
                     </li>
                 <?php endif; ?>
             </ul>

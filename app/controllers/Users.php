@@ -7,8 +7,10 @@ class Users extends Controller {
     public function register(){
 
             $this->view('users/register');
+    }
+    public function index(){
 
-
+//            $this->view('admin/dashboard');
     }
     public function login(){
         $this->view('users/login');
