@@ -1,3 +1,17 @@
+<?php
+if (!empty($data)) {
+
+    if (!empty($data['categs'])) {
+        $categs = $data['categs'];
+    }
+}
+
+
+
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -418,20 +432,37 @@
                             <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">id</th>
                             <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Nom</th>
                             <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">nbr wikies</th>
+                            <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left"><actions></actions></th>
                         </tr>
                         </thead>
                         <tbody>
+                        <?php foreach ($categs as $categ) : ?>
+
                             <tr>
+
                                 <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                                    <span class="text-[13px] font-medium">test</span>
+                                    <span class="text-[13px] font-medium"><?php echo $categ->getId();?></span>
                                 </td>
                                 <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
-                                    <span class="text-[13px] font-medium ">test</span>
+                                    <span class="text-[13px] font-medium "><?php echo $categ->getName();?></span>
                                 </td>
                                 <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                                    <span class="text-[13px] font-medium ">6</span>
+                                    <span class="text-[13px] font-medium "><?php echo $categ->getId();?></span>
                                 </td>
+                                <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
+                                    <form method="post">
+                                        <div class="my-2">
+                                            <input type="hidden" value="" name="email">
+                                            <button value="" name="deleteLyrics" class="mt-2 py-2 px-4 bg-[#313866] text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                                                <i class='ri-delete-bin-3-fill text-md'></i>
+                                            </button>
+                                            <button value="" name="approve" class="mt-2 py-2 px-4 bg-[#313866] text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
+                                                <i class='ri-edit-box-fill'></i>
+                                            </button>
+                                        </div>
+                                    </form>                                </td>
                             </tr>
+                        <?php endforeach; ?>
 
                         </tbody>
                     </table>

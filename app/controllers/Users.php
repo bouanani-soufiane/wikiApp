@@ -103,9 +103,9 @@ class Users extends Controller {
 
 
                     if ($_SESSION['userRole'] == 'admin') {
-                        $this->view('admin/dashboard');
+                        header('location: http://localhost/wikiApp/dashboard');
                     } else {
-                        $this->view('pages/index');
+                        header('location: http://localhost/wikiApp');
                     }
                 }
                 $error_user = [
