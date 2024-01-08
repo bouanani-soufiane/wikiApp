@@ -8,15 +8,15 @@
                     <div class="mb-4">
                         <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email: <sup>*</sup></label>
                         <input type="email" name="email" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['email_error'];?></span>
                     </div>
                     <div class="mb-4">
                         <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password: <sup>*</sup></label>
                         <input type="password" name="password" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
-                        <span class="invalid-feedback"></span>
+                        <span class="invalid-feedback"><?php echo $data['password_error'];?></span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <input type="submit" value="Login" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
+                        <input type="submit" name="login" value="Login" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">
                         <a href="<?php echo URLROOT; ?>/users/register" class="inline-block align-baseline font-bold text-sm text-blue-500 hover:text-blue-800">No account? Register</a>
                     </div>
                 </form>

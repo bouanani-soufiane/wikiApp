@@ -65,5 +65,31 @@ class UserDAO
             return false;
         }
     }
+    public function verifyUser(User $user)
+    {
+        $email = $user->getEmail();
+        $password = $user->getPassword();
+        $role = $user->getRole();
+
+        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
+
+        $stmt->bindParam(':email', $email);
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        $validation = false;
+
+        if ($result != false) {
+            $validation = true;
+        }
+
+        if ($validation && password_verify($password, $result['password'])) {
+            return $result;
+        } else {
+            return false;
+        }
+    }
 
 }
