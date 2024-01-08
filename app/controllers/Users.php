@@ -45,7 +45,7 @@ class Users extends Controller {
                     $this->view('users/login');
                 } else {
                     $error_user = [
-                        'email_error' => 'This email exist',
+                        'email_error' => 'email already exist',
                         'name_error' => $name_error,
                         'password_error' => $password_error,
                         'confirm_password_error' => $confirm_password_error

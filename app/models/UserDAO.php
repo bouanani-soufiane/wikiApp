@@ -20,27 +20,7 @@ class UserDAO
         $this->user = $user;
         return $this;
     }
-    public function getUserInfo()
-    {
-        try {
-            $query = "SELECT `userName`, `userEmail`,  `userImage` FROM `user` WHERE userId = 1";
-            $result = $this->conn->query($query);
 
-            if ($result === false) {
-                throw new Exception("Query failed: ");
-            }
-
-            $row = $result->fetch(PDO::FETCH_ASSOC);
-            $user = new User();
-            $user->setEmail($row['userEmail']);
-            $user->setName($row['userName']);
-
-            return $user;
-        } catch (Exception $e) {
-            error_log("Error in UserModel: " . $e->getMessage());
-            return null;
-        }
-    }
     public function selectLastUser()
     {
         $stmt = $this->conn->prepare("SELECT * FROM user ORDER BY userId LIMIT 1");
@@ -51,7 +31,7 @@ class UserDAO
 
         return $result;
     }
-    public function verifyUserByEmail($email)
+    public function verifyEmail($email)
     {
         $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->bindParam(':email', $email);
@@ -71,7 +51,7 @@ class UserDAO
         $email = $user->getEmail();
         $password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
         $role = $user->getRole();
-        if ($this->verifyUserByEmail($email) == true) {
+        if ($this->verifyEmail($email) == true) {
             $stmt = $this->conn->prepare("INSERT INTO user (userName, email, password, role) VALUES (:name, :email, :password, :role)");
 
             $stmt->bindParam(':name', $name);
