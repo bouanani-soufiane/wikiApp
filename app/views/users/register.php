@@ -7,27 +7,28 @@
                 <div class="mb-4">
                     <label for="name" class="block text-sm font-medium text-gray-600">Name: <sup>*</sup></label>
                     <input type="text" name="name" class="w-full p-2 border border-gray-300 rounded">
-                    <span class="text-red-500"></span>
+                    <input type="hidden" name="role" class="w-full p-2 border border-gray-300 rounded" value="author">
+                    <span class="text-red-500"><?php echo $data['name_error'];?></span>
                 </div>
                 <div class="mb-4">
                     <label for="email" class="block text-sm font-medium text-gray-600">Email: <sup>*</sup></label>
                     <input type="email" name="email" class="w-full p-2 border border-gray-300 rounded">
-                    <span class="text-red-500"></span>
+                    <span class="text-red-500"><?php echo $data['email_error'];?></span>
                 </div>
                 <div class="mb-4">
                     <label for="password" class="block text-sm font-medium text-gray-600">Password: <sup>*</sup></label>
                     <input type="password" name="password" class="w-full p-2 border border-gray-300 rounded">
-                    <span class="text-red-500"></span>
+                    <span class="text-red-500"><?php echo $data['password_error'];?></span>
                 </div>
                 <div class="mb-4">
                     <label for="confirm_password" class="block text-sm font-medium text-gray-600">Confirm Password: <sup>*</sup></label>
-                    <input type="password" name="confirm_password" class="w-full p-2 border border-gray-300 rounded">
-                    <span class="text-red-500"></span>
+                    <input type="password" name="confirm-password" class="w-full p-2 border border-gray-300 rounded">
+                    <span class="text-red-500"><?php echo $data['confirm_password_error'];?></span>
                 </div>
 
                 <div class="flex">
                     <div class="mr-2">
-                        <input type="submit" value="Register" class="bg-green-500 text-white px-4 py-2 rounded cursor-pointer">
+                        <input type="submit" name="registre" value="Register" class="bg-green-500 text-white px-4 py-2 rounded cursor-pointer">
                     </div>
                     <div>
                         <a href="<?php echo URLROOT; ?>/users/login" class="text-gray-600 hover:underline">Have an account? Login</a>

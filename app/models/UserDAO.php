@@ -1,5 +1,5 @@
 <?php
-require_once 'User.php';
+require_once __DIR__.'./entities/User.php';
 
 class UserDAO
 {
@@ -33,7 +33,6 @@ class UserDAO
             $row = $result->fetch(PDO::FETCH_ASSOC);
             $user = new User();
             $user->setEmail($row['userEmail']);
-            $user->setImage($row['userImage']);
             $user->setName($row['userName']);
 
             return $user;
@@ -42,9 +41,19 @@ class UserDAO
             return null;
         }
     }
+    public function selectLastUser()
+    {
+        $stmt = $this->conn->prepare("SELECT * FROM user ORDER BY userId LIMIT 1");
+
+        $stmt->execute();
+
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result;
+    }
     public function verifyUserByEmail($email)
     {
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE userEmail = :email");
+        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
         $stmt->bindParam(':email', $email);
 
         $stmt->execute();
