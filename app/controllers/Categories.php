@@ -48,4 +48,30 @@ class Categories extends Controller {
 
         }
     }
+    public function edit(){
+        if(isset($_POST['ediCategorie'])){
+            if ($_POST['CategorieName'] == ' ') {
+                $error_categ = 'Invalid Category Name';
+            } else {
+                $error_categ = '';
+            }
+            if ($error_categ == '') {
+                $this->categoryModel->getCategory()->setId(trim($_POST['idCateg']));
+                $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
+                if ($this->categoryModel->edit($this->categoryModel->getCategory())) {
+                    $this->view('admin/categories');
+                } else {
+                    $error_categ = [
+                        'name_error' => $error_categ,
+                    ];
+                    header('location: http://localhost/wikiApp/dashboard');
+                }
+            } else {
+                $error_categ = [
+                    'name_error' => $error_categ,
+                ];
+                $this->view('admin/dashboard', $error_categ);
+            }
+        }
+    }
 }

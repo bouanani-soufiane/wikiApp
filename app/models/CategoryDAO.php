@@ -21,7 +21,7 @@ class CategoryDAO
     }
     public function showCategories()
     {
-        $query = "SELECT * FROM categorie";
+        $query = "SELECT c.*, COUNT(w.wikiId) AS wikiCount FROM categorie AS c LEFT JOIN wiki AS w ON c.categorieId = w.idCategorie GROUP BY c.categorieId, c.categorieName;";
         $statement = $this->conn->prepare($query);
         $statement->execute();
         $categories = array();
@@ -29,7 +29,11 @@ class CategoryDAO
             $category = new Category();
             $category->setId($row['categorieId']);
             $category->setName($row['categorieName']);
-            array_push($categories, $category);
+            $categories[] = [
+                'id' => $category->getId(),
+                'name' => $category->getName(),
+                'wikiCount' => $row['wikiCount'],
+            ];
         }
         return $categories;
     }
@@ -44,6 +48,16 @@ class CategoryDAO
         $query = "DELETE FROM categorie WHERE categorieId = :Id";
         $statement = $this->conn->prepare($query);
         $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->execute();
+    }
+    public function edit(Category $category){
+        $id = $category->getId();
+        $name = $category->getName();
+
+        $query = "UPDATE categorie SET categorieName = :name WHERE categorieId = :Id";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
         $statement->execute();
     }
 
