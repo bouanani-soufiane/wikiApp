@@ -34,22 +34,13 @@ class Categories extends Controller {
     }
     public function delete(){
         if (isset($_POST["deleteCateg"])) {
-
-            $this->categoryModel->getCategory()->setId(trim($_POST['idCateg']));
-            if ($this->categoryModel->delete($this->categoryModel->getCategory())) {
-                header('location: http://localhost/wikiApp/dashboard');
-            }
-            else {
-                $error_categ = [
-                    'name_error' => $name_error,
-                ];
-                header('location: http://localhost/wikiApp/dashboard');
-            }
-
+            $this->categoryModel->getCategory()->setId($_POST['idCateg']);
+            $this->categoryModel->delete($this->categoryModel->getCategory());
+            header('location: http://localhost/wikiApp/dashboard');
         }
     }
     public function edit(){
-        if(isset($_POST['ediCategorie'])){
+        if(isset($_POST['editCategorie'])){
             if ($_POST['CategorieName'] == ' ') {
                 $error_categ = 'Invalid Category Name';
             } else {

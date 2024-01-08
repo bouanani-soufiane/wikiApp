@@ -46,4 +46,14 @@ class TagDAO
         $statement->bindParam(':Id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
+    public function edit(Tag $tag){
+        $id = $tag->getId();
+        $name = $tag->getName();
+
+        $query = "UPDATE tag SET tagName = :name WHERE tagId = :Id";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->execute();
+    }
 }
