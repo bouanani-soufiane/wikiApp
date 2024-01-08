@@ -27,13 +27,24 @@ class CategoryDAO
         $categories = array();
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $category = new Category();
-
             $category->setId($row['categorieId']);
             $category->setName($row['categorieName']);
-
             array_push($categories, $category);
         }
         return $categories;
+    }
+    public function create(Category $category){
+        $name = $category->getName();
+        $stmt = $this->conn->prepare("INSERT INTO categorie (categorieName) VALUES (:name)");
+        $stmt->bindParam(':name', $name);
+        $stmt->execute();
+    }
+    public function delete(Category $category){
+        $id = $category->getId();
+        $query = "DELETE FROM categorie WHERE categorieId = :Id";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->execute();
     }
 
 }
