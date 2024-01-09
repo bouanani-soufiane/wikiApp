@@ -63,18 +63,18 @@ if (!empty($data)) {
                     <tr>
 
                         <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                            <span class="text-[13px] font-medium"><?=($categ['id']) ?></span>
+                            <span class="text-[13px] font-medium"><?php echo $categ->getId();?></span>
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
-                            <span class="text-[13px] font-medium "><?=($categ['name']) ?></span>
+                            <span class="text-[13px] font-medium "><?php echo $categ->getName();?></span>
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                            <span class="text-[13px] font-medium "><?=($categ['wikiCount']) ?></span>
+                            <span class="text-[13px] font-medium "><?php echo $categ->getId();?></span>
                         </td>
                         <td class=" flex py-2 px-4 border-b border-b-gray-50 w-1/5">
                             <form method="post" class="mx-2" action="<?php echo URLROOT?>/Categories/delete">
                                 <div class="my-2">
-                                    <input type="hidden" name="idCateg" value="<?=($categ['id']) ?>" >
+                                    <input type="hidden" name="idCateg" value="<?php echo $categ->getId();?>" >
                                     <button name="deleteCateg" class="mt-2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                                         <i class='ri-delete-bin-3-fill text-md'></i>
                                     </button>
@@ -82,7 +82,7 @@ if (!empty($data)) {
                                 </div>
                             </form>
                             <div class="my-2">
-                                <button data-categ-id="<?= $categ['id'] ?>" data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="mt-2 py-2 px-4 bg-green-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" type="button">
+                                <button data-categ-id="<?php echo $categ->getId();?>" data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="mt-2 py-2 px-4 bg-green-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" type="button">
                                     <i class='ri-edit-box-fill'></i>
                                 </button>
 
@@ -103,7 +103,7 @@ if (!empty($data)) {
                                             <form class="p-4 md:p-5" method="post" action="<?php echo URLROOT?>/Categories/edit">
                                                 <div class="grid gap-4 mb-4 grid-cols-2">
                                                     <div class="col-span-2">
-                                                        <input type="hidden" value="<?=($categ['id']) ?>" name="idCateg">
+                                                        <input type="hidden" value="<?php echo $categ->getId();?>" name="idCateg">
                                                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie Name</label>
                                                         <input type="text" name="CategorieName" id="name" class="bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0" placeholder="Name" required="">
                                                     </div>

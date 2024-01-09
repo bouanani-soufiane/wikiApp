@@ -21,19 +21,17 @@ class CategoryDAO
     }
     public function showCategories()
     {
-        $query = "SELECT c.*, COUNT(w.wikiId) AS wikiCount FROM categorie AS c LEFT JOIN wiki AS w ON c.categorieId = w.idCategorie GROUP BY c.categorieId, c.categorieName;";
+        $query = "SELECT * FROM categorie";
         $statement = $this->conn->prepare($query);
         $statement->execute();
         $categories = array();
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $category = new Category();
+
             $category->setId($row['categorieId']);
             $category->setName($row['categorieName']);
-            $categories[] = [
-                'id' => $category->getId(),
-                'name' => $category->getName(),
-                'wikiCount' => $row['wikiCount'],
-            ];
+
+            array_push($categories, $category);
         }
         return $categories;
     }

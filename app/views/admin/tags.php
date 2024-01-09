@@ -60,9 +60,7 @@ if (!empty($data)) {
                 </thead>
                 <tbody>
                 <?php foreach ($tags as $tag) : ?>
-
                     <tr>
-
                         <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
                             <span class="text-[13px] font-medium"><?php echo $tag->getId();?></span>
                         </td>
@@ -79,7 +77,6 @@ if (!empty($data)) {
                                     <button name="deleteTag" class="mt-2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800">
                                         <i class='ri-delete-bin-3-fill text-md'></i>
                                     </button>
-
                                 </div>
                             </form>
                             <div class="my-2">

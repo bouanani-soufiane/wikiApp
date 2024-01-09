@@ -2,7 +2,7 @@
 <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
 <section>
     <div class="bg-gray-800">
-        <div class="bg-gradient-to-b from-violet-600/[.15] via-transparent">
+        <div class="bg-gradient-to-b from-transparent via-violet-600/[.25]">
             <div class="max-w-[85rem] mx-auto px-4 sm:px-6 lg:px-8 py-24 space-y-8">
                 <div class="max-w-3xl text-center mx-auto">
                     <h1 class="block font-medium text-gray-200 text-3xl sm:text-5xl md:text-6xl lg:text-5xl">

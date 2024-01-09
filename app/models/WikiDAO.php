@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__.'./entities/Tag.php';
+require_once __DIR__.'./entities/Wiki.php';
 
-class TagDAO extends Controller
+class WikiDAO
 {
     private $conn;
     private Wiki $wiki;
@@ -19,13 +19,6 @@ class TagDAO extends Controller
         $this->wiki = $wiki;
         return $this;
     }
-    public function index(){
-        $this->view('pages/index');
-    }
-    public function create(Tag $tag){
-        $name = $tag->getName();
-        $stmt = $this->conn->prepare("INSERT INTO tag (tagName) VALUES (:name)");
-        $stmt->bindParam(':name', $name);
-        $stmt->execute();
-    }
+
+
 }
