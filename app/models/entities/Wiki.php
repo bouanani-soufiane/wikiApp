@@ -8,6 +8,7 @@ class Wiki
 {
     private $id;
     private $titre;
+    private $description;
     private $content;
     private $image;
     private $isArchived;
@@ -37,6 +38,15 @@ class Wiki
     public function setTitre($titre)
     {
         $this->titre = $titre;
+        return $this;
+    }
+    public function getDescription()
+    {
+        return $this->description;
+    }
+    public function setDescription($description)
+    {
+        $this->description = $description;
         return $this;
     }
     public function getContent()
