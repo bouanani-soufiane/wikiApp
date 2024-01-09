@@ -13,12 +13,10 @@ class Wiki
     private $image;
     private $isArchived;
     private $createdAt;
-    private Tag $tag;
     private Category $category;
     private User $user;
     public function __construct()
     {
-        $this->tag = new Tag();
         $this->category = new Category();
         $this->user = new User();
     }
@@ -85,20 +83,12 @@ class Wiki
         $this->createdAt = $createdAt;
         return $this;
     }
-    public function getTag(): Tag
-    {
-        return $this->tag;
-    }
-    public function setTag(Tag $tag): Wiki
-    {
-        $this->tag = $tag;
-        return $this;
-    }
+
     public function getCategory(): Category
     {
         return $this->category;
     }
-    public function setCategory(Category $category): Wiki
+    public function setCategory(Category $category)
     {
         $this->category = $category;
         return $this;
@@ -107,7 +97,7 @@ class Wiki
     {
         return $this->user;
     }
-    public function setUser(User $user): Wiki
+    public function setUser(User $user)
     {
         $this->user = $user;
         return $this;

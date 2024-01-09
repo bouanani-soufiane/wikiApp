@@ -39,6 +39,15 @@ class WikiDAO
 
         $stmt->execute();
     }
+    public function getLastWikiId($id)
+    {
+        $stmt = $this->conn->prepare("SELECT wikiId FROM `wiki` WHERE idUser = :id ORDER BY wikiId DESC LIMIT 1;");
+        $stmt->bindParam(':id', $id);
+        $stmt->execute();
 
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        return $result ? $result['wikiId'] : null;
+    }
 
 }

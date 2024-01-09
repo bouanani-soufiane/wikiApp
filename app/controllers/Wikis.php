@@ -2,11 +2,14 @@
 class Wikis extends Controller {
     public function __construct(){
         $this->wikiModel = $this->model('WikiDAO');
+        $this->wikiTagModel = $this->model('WikiTagDAO');
         $this->categoryModel = $this->model('CategoryDAO');
         $this->tagModel = $this->model('TagDAO');
 
+
     }
     public function index(){
+
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
         $this->view('users/author_post',['categs'=>$categs , 'tags'=>$tags]);
@@ -29,28 +32,28 @@ class Wikis extends Controller {
                $content_error = '';
            }
            if ($title_error == '' &&  $desc_error == '' && $content_error == '' ) {
-               $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
-               $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
-               $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
-               $tmp_name = $_FILES['image']['tmp_name'];
-               $imageName = file_get_contents($tmp_name);
-               $this->wikiModel->getWiki()->setImage($imageName);
-               $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
-               $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
 
-               if ($this->wikiModel->create($this->wikiModel->getWiki())) {
+                   $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
+                   $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
+                   $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
+                   $tmp_name = $_FILES['image']['tmp_name'];
+                   $imageName = file_get_contents($tmp_name);
+                   $this->wikiModel->getWiki()->setImage($imageName);
+                   $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
+                   $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
 
+                   $idwiki = $this->wikiModel->getLastWikiId(7);
 
+                   $this->wikiTagModel->getWikiTag()->getTag()->setId(7);
+                   $this->wikiTagModel->getWikiTag()->getWiki()->setId( $idwiki);
 
+                   $this->wikiTagModel->create($this->wikiTagModel->getWikiTag()) ;
 
+                   $this->conn->commit();
 
+                   header('location: http://localhost/wikiApp');
+                   exit();
 
-
-
-                   $this->view('pages/index');
-               } else {
-                   header('location: http://localhost/wikiApp/login');
-               }
            } else {
                if ($title_error != '' || $desc_error != '' || $content_error != '') {
                    $error_wiki = [
@@ -58,11 +61,10 @@ class Wikis extends Controller {
                        'desc_error' => $desc_error,
                        'content_error' => $content_error
                    ];
-                   header('location: http://localhost/wikiApp/tags');
+                   header('location: http://localhost/wikiApp');
                }
-
-
            }
+                   header('location: http://localhost/wikiApp');
        }
     }
 
@@ -71,3 +73,5 @@ class Wikis extends Controller {
 //               echo "<pre>";
 //               var_dump($this->wikiModel);
 //               die();
+
+

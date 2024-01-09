@@ -32,7 +32,6 @@ if (!empty($data)) {
                         <input type="text" placeholder="Description" id="title" name="wikiDescription"
                                class="outline-none py-4 px-2 text-md border-2 rounded-md flex-1"/>
                     </div>
-
                     <div>
                         <label for="Content" class="block mb-2 text-lg ">Content:</label>
                         <textarea id="Content" cols="30" rows="10" placeholder="Write here.." name="wikiContent"
@@ -45,7 +44,6 @@ if (!empty($data)) {
                                 <?php foreach ($categs as $categ) : ?>
                                     <option value="<?php echo $categ->getId();?>"><?php echo $categ->getName();?></option>
                                 <?php endforeach; ?>
-
                             </select>
                         </div>
                     </div>
