@@ -49,5 +49,23 @@ class WikiDAO
 
         return $result ? $result['wikiId'] : null;
     }
+    public function showWiki()
+    {
+        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId;");
+        $stmt->execute();
+        $wikis = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $wiki = new Wiki();
+            $wiki->setId($row['wikiId']);
+            $wiki->setTitre($row['wikiTitre']);
+            $wiki->setDescription($row['description']);
+            $wiki->setContent($row['wikiContent']);
+            $wiki->setImage($row['wikiImage']);
+            $wiki->setCreatedAt($row['createdAt']);
+            $wiki->getCategory()->setName($row['categorieName']);
+            array_push($wikis, $wiki);
+        }
+        return $wikis;
+    }
 
 }

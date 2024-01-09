@@ -6,16 +6,22 @@ class Wikis extends Controller {
         $this->categoryModel = $this->model('CategoryDAO');
         $this->tagModel = $this->model('TagDAO');
 
-
     }
-    public function index(){
+//    public function index(){
+//        $categs = $this->categoryModel->showCategories();
+//        $tags = $this->tagModel->showTags();
+//        $this->view('users/author_post',['categs'=>$categs , 'tags'=>$tags]);
+//    }
 
+    public function create(){
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
         $this->view('users/author_post',['categs'=>$categs , 'tags'=>$tags]);
     }
-    public function create(){
+
+    public function store(){
        if (isset($_POST["save"])) {
+
            if ($_POST['wikiTitle'] == ' ') {
                $title_error = 'Invalid wiki title';
            } else {
@@ -41,18 +47,17 @@ class Wikis extends Controller {
                    $this->wikiModel->getWiki()->setImage($imageName);
                    $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
                    $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
+               if ($this->wikiModel->create($this->wikiModel->getWiki())) {
 
                    $idwiki = $this->wikiModel->getLastWikiId(7);
 
                    $this->wikiTagModel->getWikiTag()->getTag()->setId(7);
-                   $this->wikiTagModel->getWikiTag()->getWiki()->setId( $idwiki);
+                   $this->wikiTagModel->getWikiTag()->getWiki()->setId($idwiki);
 
-                   $this->wikiTagModel->create($this->wikiTagModel->getWikiTag()) ;
+                   $this->wikiTagModel->create($this->wikiTagModel->getWikiTag());
 
-                   $this->conn->commit();
-
+               }
                    header('location: http://localhost/wikiApp');
-                   exit();
 
            } else {
                if ($title_error != '' || $desc_error != '' || $content_error != '') {
@@ -69,9 +74,5 @@ class Wikis extends Controller {
     }
 
 }
-
-//               echo "<pre>";
-//               var_dump($this->wikiModel);
-//               die();
 
 

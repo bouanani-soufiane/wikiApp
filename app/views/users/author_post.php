@@ -10,7 +10,7 @@ if (!empty($data)) {
 }
 ?>
 <main class="w-full max-h-screen transition-all main">
-    <form method="post" action="<?php echo URLROOT?>/Wikis/create" enctype="multipart/form-data">
+    <form method="post" action="<?php echo URLROOT?>/Wikis/store" enctype="multipart/form-data">
         <div class="bg-gray-800 min-h-screen md:px-20 pt-6 bg-gradient-to-b from-transparent via-violet-600/[.30]">
                 <h1 class="text-center text-6xl font-bold text-slate-100 mb-8 ">Create Post</h1>
             <div class=" bg-white rounded-xl px-6 py-10 mx-auto">

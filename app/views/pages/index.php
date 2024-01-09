@@ -29,7 +29,7 @@
             <i class="ri-search-line"></i>
         </button>
     </div>
-    <a href="<?php echo URLROOT; ?>/Wikis" class="flex items-center text-gray-700 hover:text-black ml-4 px-4 py-2 bg-gray-200 rounded">
+    <a href="<?php echo URLROOT; ?>/Wikis/create" class="flex items-center text-gray-700 hover:text-black ml-4 px-4 py-2 bg-gray-200 rounded">
         <i class="ri-pencil-line"></i>
     </a>
 
