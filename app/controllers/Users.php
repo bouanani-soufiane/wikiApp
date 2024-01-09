@@ -139,6 +139,12 @@ class Users extends Controller {
         session_destroy();
         header('location:/paroly/public/home/login');
     }
+    public function index()
+    {
+        $this->view('pages/about');
+
+    }
+
 
 
 }

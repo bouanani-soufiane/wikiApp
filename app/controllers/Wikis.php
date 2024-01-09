@@ -1,10 +1,10 @@
 <?php
-class Tags extends Controller {
+class Wikis extends Controller {
     public function __construct(){
-        $this->tagModel = $this->model('TagDAO');
+        $this->wikiModel = $this->model('WikiDAO');
     }
     public function index(){
-        $tags = $this->tagModel->showTags();
+        $tags = $this->wikiModel->showTags();
         $this->view('admin/tags',['tags'=>$tags]);
     }
     public function create(){
