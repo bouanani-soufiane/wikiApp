@@ -1,3 +1,8 @@
+<?php
+session_start();
+//echo($_SESSION['userId']);
+//die();
+?>
 <?php require APPROOT . '/views/inc/header.php'; ?>
 <?php
 if (!empty($data)) {
