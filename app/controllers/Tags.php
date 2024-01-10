@@ -5,7 +5,8 @@ class Tags extends Controller {
     }
     public function index(){
         $tags = $this->tagModel->showTags();
-        $this->view('admin/tags',['tags'=>$tags]);
+        $countTag = $this->tagModel->countTag();
+        $this->view('admin/tags',['tags'=>$tags , 'countTag'=>$countTag]);
     }
     public function create(){
         if (isset($_POST["addTag"])) {

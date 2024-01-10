@@ -1,11 +1,14 @@
 <?php
 class Categories extends Controller {
     public function __construct(){
+
         $this->categoryModel = $this->model('CategoryDAO');
     }
     public function index(){
         $categs = $this->categoryModel->showCategories();
-        $this->view('admin/categories',['categs'=>$categs]);
+        $countCateg = $this->categoryModel->countCateg();
+
+        $this->view('admin/categories',['categs'=>$categs ,'countCateg'=>$countCateg]);
     }
     public function create(){
         if (isset($_POST["addCategorie"])) {

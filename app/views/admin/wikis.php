@@ -4,8 +4,27 @@ if (!empty($data)) {
     if (!empty($data['wiki'])) {
         $wikis = $data['wiki'];
     }
+    if (!empty($data['countWiki'])) {
+        $countWiki = $data['countWiki'];
+    }
 }
 ?>
+<div class="w-full grid grid-cols-1  gap-6 mb-6">
+    <div class=" w-full bg-white rounded-md border border-gray-100 p-6 shadow-md ">
+        <div class=" w-full flex justify-between mb-4">
+            <div>
+                <div class="flex items-center mb-1">
+                    <div class="text-2xl font-semibold"><i class="ri-file-copy-2-fill"></i> <?php echo $countWiki?></div>
+                    <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Categorie</div>
+                </div>
+                <div class="text-sm font-medium text-gray-400">Categorie</div>
+            </div>
+        </div>
+        <div class="flex items-center">
+
+        </div>
+    </div>
+</div>
 <div class="grid grid-cols-1 w-full ">
 
     <div class="flex flex-col h-full">

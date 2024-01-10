@@ -9,7 +9,8 @@ class Wikis extends Controller {
     public function index(){
         $wiki = $this->wikiModel->showWiki();
         $tags = $this->tagModel->showTags();
-        $this->view('admin/wikis',['wiki'=>$wiki]);
+        $countWiki = $this->wikiModel->countWiki();
+        $this->view('admin/wikis',['wiki'=>$wiki , 'countWiki'=>$countWiki]);
     }
     public function create(){
         $categs = $this->categoryModel->showCategories();

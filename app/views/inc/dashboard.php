@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,45 +71,3 @@
         </ul>
     </div>
     <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-4">
-                    <div>
-                        <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
-            </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-4">
-                    <div>
-                        <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
-            </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-6">
-                    <div>
-                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>2,345</div>
-                        <div class="text-sm font-medium text-gray-400">Active orders</div>
-                    </div>
-                </div>
-                <a href="#" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
-            </div>
-        </div>
