@@ -16,6 +16,9 @@ if (!empty($data)) {
         $countCateg = $data['countCateg'];
     }
 }
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -96,7 +99,7 @@ if (!empty($data)) {
                     <div>
                         <div class="flex items-center mb-1">
                             <div class="text-2xl font-semibold"> <i class="ri-group-fill"></i> <?php echo $usersCount;?></div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">users</div>
+                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Authors</div>
 
                         </div>
                         <div class="text-sm font-medium text-gray-400">Authors</div>
