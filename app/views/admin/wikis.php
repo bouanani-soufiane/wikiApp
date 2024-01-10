@@ -26,6 +26,9 @@ if (!empty($data)) {
                                 <div class="font-semibold text-left">content</div>
                             </th>
                             <th class="p-2 whitespace-nowrap">
+                                <div class="font-semibold text-left">archived</div>
+                            </th>
+                            <th class="p-2 whitespace-nowrap">
                                 <div class="font-semibold text-center">action</div>
                             </th>
                         </tr>
@@ -47,14 +50,20 @@ if (!empty($data)) {
                                     <div class="text-left"><?php echo mb_strimwidth($wiki->getTitre(), 0, 100, '...');?></div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500"><?php echo mb_strimwidth($wiki->getContent(), 0, 300, '...');?></div>
+                                    <div class="text-left font-medium text-green-500"><?php echo mb_strimwidth($wiki->getContent(), 0, 250, '...');?></div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-lg text-center">
-                                        <a href="">
-                                            <i class="ri-archive-line text-2xl "></i>
-                                        </a>
-                                    </div>
+                                    <div class="text-left font-medium text-green-500"><?=$wiki->getIsArchived()?></div>
+                                </td>
+                                <td class="p-2 whitespace-nowrap">
+                                    <form method="post" class="mx-2" action="<?php echo URLROOT?>/Wikis/archive/<?=$wiki->getId()?>">
+                                        <div class="my-2">
+                                            <input type="hidden" name="idWiki" value="<?php echo $wiki->getId();?>" >
+                                            <button name="archiveWiki" class="mt-2 py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-300 focus:outline-none focus:shadow-outline-blue active:bg-red-500">
+                                                <i class='ri-archive-line text-md'></i>
+                                            </button>
+                                        </div>
+                                    </form>
                                 </td>
                             </tr>
                         <?php endforeach; ?>

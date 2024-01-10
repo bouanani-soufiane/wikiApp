@@ -62,6 +62,7 @@ class WikiDAO
             $wiki->setContent($row['wikiContent']);
             $wiki->setImage($row['wikiImage']);
             $wiki->setCreatedAt($row['createdAt']);
+            $wiki->setIsArchived($row['isArchived']);
             $wiki->getCategory()->setName($row['categorieName']);
             array_push($wikis, $wiki);
         }
@@ -116,5 +117,11 @@ class WikiDAO
         $statement->bindParam(':wikiId', $id, PDO::PARAM_INT);
         $statement->execute();
     }
+    public function archive($id){
 
+        $query = "UPDATE wiki SET isArchived = 1 WHERE wikiId = :wikiId";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':wikiId', $id, PDO::PARAM_INT);
+        $statement->execute();
+    }
 }

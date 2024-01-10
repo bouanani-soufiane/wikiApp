@@ -129,6 +129,11 @@ class Wikis extends Controller {
         header('location: http://localhost/wikiApp/');
 
     }
+    public function archive($id){
+        $this->wikiModel->archive($id);
+        header('location: http://localhost/wikiApp/');
+
+    }
 
 }
 
