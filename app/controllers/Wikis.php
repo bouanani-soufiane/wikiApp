@@ -5,14 +5,7 @@ class Wikis extends Controller {
         $this->wikiTagModel = $this->model('WikiTagDAO');
         $this->categoryModel = $this->model('CategoryDAO');
         $this->tagModel = $this->model('TagDAO');
-
     }
-//    public function index(){
-//        $categs = $this->categoryModel->showCategories();
-//        $tags = $this->tagModel->showTags();
-//        $this->view('users/author_post',['categs'=>$categs , 'tags'=>$tags]);
-//    }
-
     public function create(){
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
@@ -53,7 +46,6 @@ class Wikis extends Controller {
 
                    $this->wikiTagModel->getWikiTag()->getTag()->setId(7);
                    $this->wikiTagModel->getWikiTag()->getWiki()->setId($idwiki);
-
                    $this->wikiTagModel->create($this->wikiTagModel->getWikiTag());
 
                }
@@ -71,6 +63,66 @@ class Wikis extends Controller {
            }
                    header('location: http://localhost/wikiApp');
        }
+    }
+    public function showSingle($id){
+        $wiki = $this->wikiModel->showSingleWiki($id);
+        $this->view('pages/singleWiki',['wiki'=>$wiki ]);
+    }
+    public function edit($id){
+        $wiki = $this->wikiModel->showSingleWiki($id);
+        $categs = $this->categoryModel->showCategories();
+        $tags = $this->tagModel->showTags();
+        $this->view('pages/updateSignleWiki',['categs'=>$categs , 'tags'=>$tags,'wiki'=>$wiki]);
+    }
+    public function update(){
+        if(isset($_POST['save'])){
+            $title_error = $desc_error = $content_error = '';
+
+            if (empty(trim($_POST['wikiTitle']))) {
+                $title_error = 'Invalid wiki title';
+            }
+            if (empty(trim($_POST['wikiDescription']))) {
+                $desc_error = 'Invalid wiki description';
+            }
+            if (empty(trim($_POST['wikiContent']))) {
+                $content_error = 'Invalid wiki content';
+            }
+
+            if ($title_error == '' && $desc_error == '' && $content_error == '') {
+                $this->wikiModel->getWiki()->setId($_POST['id']);
+                $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
+                $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
+                $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
+                $tmp_name = $_FILES['image']['tmp_name'];
+                $imageName = file_get_contents($tmp_name);
+                $this->wikiModel->getWiki()->setImage($imageName);
+                $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
+                $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
+
+                if ($this->wikiModel->update($this->wikiModel->getWiki())) {
+                    $this->view('pages/updateSingleWiki');
+                } else {
+                    $error_wiki = [
+                        'title_error' => 'Failed to update wiki.'
+                    ];
+                    header('location: http://localhost/wikiApp/?' . http_build_query($error_wiki));
+                    exit;
+                }
+            } else {
+                $error_wiki = [
+                    'title_error' => $title_error,
+                    'desc_error' => $desc_error,
+                    'content_error' => $content_error
+                ];
+                header('location: http://localhost/wikiApp/?' . http_build_query($error_wiki));
+                exit;
+            }
+        }
+    }
+    public function delete($id){
+        $this->wikiModel->delete($id);
+        header('location: http://localhost/wikiApp/');
+
     }
 
 }
