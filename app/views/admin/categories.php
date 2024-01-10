@@ -30,11 +30,18 @@ if (!empty($data)) {
                                     <span class="sr-only">Close modal</span>
                                 </button>
                             </div>
-                            <form class="p-4 md:p-5" method="post" action="<?php echo URLROOT?>/Categories/create">
+                            <form class="p-4 md:p-5" method="post" action="<?php echo URLROOT?>/Categories/create" enctype="multipart/form-data">
                                 <div class="grid gap-4 mb-4 grid-cols-2">
                                     <div class="col-span-2">
                                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie Name</label>
                                         <input type="text" name="CategorieName" id="name" class="bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0" placeholder="Categorie name" required="">
+                                    </div>
+                                </div>
+                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                    <div class="col-span-2">
+                                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Add Cover Image:</label>
+                                        <input type="file" placeholder="image" id="image" name="categorieImage"
+                                               class="outline-none py-2 px-2 text-md border-2 rounded-md flex-1 bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0"/>
                                     </div>
                                 </div>
                                 <button name="addCategorie" type="submit" class="text-white inline-flex items-center bg-[#313866] hover:bg-blend-darken-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-dark-700 ">
@@ -52,6 +59,7 @@ if (!empty($data)) {
                 <thead>
                 <tr>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">id</th>
+                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">image</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Nom</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">nbr wikies</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left"><actions></actions></th>
@@ -66,8 +74,12 @@ if (!empty($data)) {
                             <span class="text-[13px] font-medium"><?php echo $categ->getId();?></span>
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
+                            <img class="w-full" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($categ->getImage()); ?>" alt="image">
+                        </td>
+                        <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
                             <span class="text-[13px] font-medium "><?php echo $categ->getName();?></span>
                         </td>
+
                         <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
                             <span class="text-[13px] font-medium "><?php echo $categ->getId();?></span>
                         </td>
@@ -100,12 +112,19 @@ if (!empty($data)) {
                                                     <span class="sr-only">Close modal</span>
                                                 </button>
                                             </div>
-                                            <form class="p-4 md:p-5" method="post" action="<?php echo URLROOT?>/Categories/edit">
+                                            <form class="p-4 md:p-5" method="post" action="<?php echo URLROOT?>/Categories/edit" enctype="multipart/form-data">
                                                 <div class="grid gap-4 mb-4 grid-cols-2">
                                                     <div class="col-span-2">
                                                         <input type="hidden" value="<?php echo $categ->getId();?>" name="idCateg">
                                                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie Name</label>
                                                         <input type="text" name="CategorieName" id="name" class="bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0" placeholder="Name" required="">
+                                                    </div>
+                                                </div>
+                                                <div class="grid gap-4 mb-4 grid-cols-2">
+                                                    <div class="col-span-2">
+                                                        <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">update Cover Image:</label>
+                                                        <input type="file" placeholder="image" id="image" name="categorieImage"
+                                                               class="outline-none py-2 px-2 text-md border-2 rounded-md flex-1 bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0"/>
                                                     </div>
                                                 </div>
                                                 <button name="editCategorie" type="submit" class="text-white inline-flex items-center bg-[#313866] hover:bg-blend-darken-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:hover:bg-dark-700 ">

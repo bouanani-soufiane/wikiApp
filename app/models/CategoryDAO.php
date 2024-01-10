@@ -30,6 +30,7 @@ class CategoryDAO
 
             $category->setId($row['categorieId']);
             $category->setName($row['categorieName']);
+            $category->setImage($row['categorieImage']);
 
             array_push($categories, $category);
         }
@@ -37,8 +38,10 @@ class CategoryDAO
     }
     public function create(Category $category){
         $name = $category->getName();
-        $stmt = $this->conn->prepare("INSERT INTO categorie (categorieName) VALUES (:name)");
+        $categorieImage = $category->getImage();
+        $stmt = $this->conn->prepare("INSERT INTO categorie (categorieName,categorieImage) VALUES (:name,:categorieImage)");
         $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':categorieImage', $categorieImage);
         $stmt->execute();
     }
     public function delete(Category $category){
@@ -51,12 +54,16 @@ class CategoryDAO
     public function edit(Category $category){
         $id = $category->getId();
         $name = $category->getName();
+        $categorieImage = $category->getImage();
 
-        $query = "UPDATE categorie SET categorieName = :name WHERE categorieId = :Id";
+        $query = "UPDATE categorie SET categorieName = :name, categorieImage = :image WHERE categorieId = :id";
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':image', $categorieImage, PDO::PARAM_LOB);
+
         $statement->execute();
     }
+
 
 }

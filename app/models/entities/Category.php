@@ -3,6 +3,7 @@
 class Category{
     private $id;
     private $name;
+    private $image;
     public function __construct()
     {
     }
@@ -23,6 +24,15 @@ class Category{
     public function setName($name)
     {
         $this->name = $name;
+        return $this;
+    }
+    public function getImage()
+    {
+        return $this->image;
+    }
+    public function setImage($image)
+    {
+        $this->image = $image;
         return $this;
     }
 }

@@ -16,13 +16,16 @@ class Categories extends Controller {
             }
             if ($name_error == '') {
                 $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
+                $tmp_name = $_FILES['categorieImage']['tmp_name'];
+                $imageName = file_get_contents($tmp_name);
+                $this->categoryModel->getCategory()->setImage($imageName);
                 if ($this->categoryModel->create($this->categoryModel->getCategory())) {
                     $this->view('admin/categories');
                 } else {
                     $error_categ = [
                         'name_error' => $name_error,
                     ];
-                    header('location: http://localhost/wikiApp/dashboard');
+                    header('location: http://localhost/wikiApp/categories');
                 }
             } else {
                 $error_categ = [
@@ -36,7 +39,7 @@ class Categories extends Controller {
         if (isset($_POST["deleteCateg"])) {
             $this->categoryModel->getCategory()->setId($_POST['idCateg']);
             $this->categoryModel->delete($this->categoryModel->getCategory());
-            header('location: http://localhost/wikiApp/dashboard');
+            header('location: http://localhost/wikiApp/categories');
         }
     }
     public function edit(){
@@ -49,13 +52,16 @@ class Categories extends Controller {
             if ($error_categ == '') {
                 $this->categoryModel->getCategory()->setId(trim($_POST['idCateg']));
                 $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
+                $tmp_name = $_FILES['categorieImage']['tmp_name'];
+                $imageName = file_get_contents($tmp_name);
+                $this->categoryModel->getCategory()->setImage($imageName);
                 if ($this->categoryModel->edit($this->categoryModel->getCategory())) {
                     $this->view('admin/categories');
                 } else {
                     $error_categ = [
                         'name_error' => $error_categ,
                     ];
-                    header('location: http://localhost/wikiApp/dashboard');
+                    header('location: http://localhost/wikiApp/categories');
                 }
             } else {
                 $error_categ = [

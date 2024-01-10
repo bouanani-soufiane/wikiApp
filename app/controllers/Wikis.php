@@ -6,6 +6,11 @@ class Wikis extends Controller {
         $this->categoryModel = $this->model('CategoryDAO');
         $this->tagModel = $this->model('TagDAO');
     }
+    public function index(){
+        $wiki = $this->wikiModel->showWiki();
+        $tags = $this->tagModel->showTags();
+        $this->view('admin/wikis',['wiki'=>$wiki]);
+    }
     public function create(){
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
