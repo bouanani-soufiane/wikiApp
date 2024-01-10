@@ -131,9 +131,13 @@ class Wikis extends Controller {
     }
     public function archive($id){
         $this->wikiModel->archive($id);
-        header('location: http://localhost/wikiApp/');
+        header('location: http://localhost/wikiApp/wikis');
 
     }
+    public function countWiki(){
+        $this->wikiModel->countWiki();
+    }
+
 
 }
 

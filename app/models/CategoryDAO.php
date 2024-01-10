@@ -64,6 +64,12 @@ class CategoryDAO
 
         $statement->execute();
     }
-
+    public function countCateg() {
+        $query = "SELECT COUNT(*) AS categCount FROM categorie";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->categCount;
+    }
 
 }

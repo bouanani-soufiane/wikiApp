@@ -30,7 +30,6 @@ class Users extends Controller {
             } else {
                 $confirm_password_error = '';
             }
-            // If all validations pass, proceed with user registration
             if ($email_error == '' && $name_error == '' && $password_error == '' && $confirm_password_error == '') {
                 $this->userModel->getUser()->setName(trim($_POST['name']));
                 $this->userModel->getUser()->setEmail(trim($_POST['email']));
@@ -74,14 +73,12 @@ class Users extends Controller {
     {
         if (isset($_POST['login'])) {
 
-            // Validate email
             if (!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
                 $email_error = 'Invalid email address';
             } else {
                 $email_error = '';
             }
 
-            // Validate password
             if ($_POST['password'] == ' ') {
                 $password_error = 'Invalid password format';
             } else {
@@ -92,7 +89,6 @@ class Users extends Controller {
                 $this->userModel->getUser()->setEmail(trim($_POST['email']));
                 $this->userModel->getUser()->setPassword($_POST['password']);
 
-
                 $user = $this->userModel->verifyUser($this->userModel->getUser());
 
                 if ($user != false) {
@@ -100,7 +96,6 @@ class Users extends Controller {
                     $_SESSION['userName'] = $user['userName'];
                     $_SESSION['userEmail'] = $user['email'];
                     $_SESSION['userRole'] = $user['role'];
-
 
                     if ($_SESSION['userRole'] == 'admin') {
                         header('location: http://localhost/wikiApp/dashboard');
@@ -125,26 +120,22 @@ class Users extends Controller {
                 'email_error' => '',
                 'password_error' => ''
             ];
-
             $this->view('users/login',$error_user);
-
         }
-
     }
-
     public function logout()
     {
-        session_start();
-        session_unset();
         session_destroy();
         header('location:/paroly/public/home/login');
     }
     public function index()
     {
-        $this->view('pages/about');
+        $this->view('pages/index');
 
     }
-
+    public function countUsers(){
+        $this->userModel->countUser();
+    }
 
 
 }

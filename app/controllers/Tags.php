@@ -66,5 +66,8 @@ class Tags extends Controller {
             }
         }
     }
+    public function countTag(){
+        $this->tagModel->countTag();
+    }
 
 }

@@ -92,4 +92,12 @@ class UserDAO
         }
     }
 
+    public function countUser() {
+        $query = "SELECT COUNT(*) AS uersCount FROM user where role = 'author'";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->uersCount;
+    }
+
 }

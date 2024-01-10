@@ -56,4 +56,11 @@ class TagDAO
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
         $statement->execute();
     }
+    public function countTag() {
+        $query = "SELECT COUNT(*) AS tagCount FROM tag";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->tagCount;
+    }
 }

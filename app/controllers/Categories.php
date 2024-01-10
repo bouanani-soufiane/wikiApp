@@ -71,4 +71,7 @@ class Categories extends Controller {
             }
         }
     }
+    public function countCateg(){
+        $this->categoryModel->countCateg();
+    }
 }

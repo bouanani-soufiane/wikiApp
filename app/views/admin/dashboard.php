@@ -3,6 +3,18 @@ if (!empty($data)) {
     if (!empty($data['categs'])) {
         $categs = $data['categs'];
     }
+    if (!empty($data['wikiCount'])) {
+        $wikiCount = $data['wikiCount'];
+    }
+    if (!empty($data['usersCount'])) {
+        $usersCount = $data['usersCount'];
+    }
+    if (!empty($data['countTag'])) {
+        $countTag = $data['countTag'];
+    }
+    if (!empty($data['countCateg'])) {
+        $countCateg = $data['countCateg'];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -77,143 +89,73 @@ if (!empty($data)) {
             <li class="text-gray-600 mr-2 font-medium">Analytics</li>
         </ul>
     </div>
-    <div class="p-6">
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+    <div class="p-10">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/4">
                 <div class="flex justify-between mb-4">
                     <div>
                         <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                            <div class="text-2xl font-semibold"> <i class="ri-group-fill"></i> <?php echo $usersCount;?></div>
+                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">users</div>
+
                         </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
+                        <div class="text-sm font-medium text-gray-400">Authors</div>
                     </div>
                 </div>
                 <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
 
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
                 </div>
             </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/4">
                 <div class="flex justify-between mb-4">
                     <div>
                         <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                            <div class="text-2xl font-semibold"><i class="ri-file-text-fill"></i> <?php echo $wikiCount?></div>
+                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">wikis</div>
+
                         </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
+                        <div class="text-sm font-medium text-gray-400">Wikis</div>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
+                    <a href="<?php echo URLROOT; ?>/wikis" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
 
-                </div>
             </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-6">
-                    <div>
-                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>2,345</div>
-                        <div class="text-sm font-medium text-gray-400">Active orders</div>
-                    </div>
-                </div>
-                <a href="#" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/4">
                 <div class="flex justify-between mb-4">
                     <div>
                         <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                            <div class="text-2xl font-semibold"><i class="ri-file-copy-2-fill"></i> <?php echo $countCateg?></div>
+                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Categorie</div>
+
                         </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
+                        <div class="text-sm font-medium text-gray-400">Categorie</div>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
+                <a href="<?php echo URLROOT; ?>/Categories" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
             </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
+            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/4">
                 <div class="flex justify-between mb-4">
                     <div>
                         <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
+                            <div class="text-2xl font-semibold"> <?php echo $countTag?></div>
+                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Tags</div>
+
                         </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
+                        <div class="text-sm font-medium text-gray-400">Tags</div>
                     </div>
                 </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
-            </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-6">
-                    <div>
-                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>2,345</div>
-                        <div class="text-sm font-medium text-gray-400">Active orders</div>
-                    </div>
-                </div>
-                <a href="#" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
-            </div>
-        </div>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
-
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-4">
-                    <div>
-                        <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
-            </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-4">
-                    <div>
-                        <div class="flex items-center mb-1">
-                            <div class="text-2xl font-semibold">324</div>
-                            <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">+30%</div>
-                        </div>
-                        <div class="text-sm font-medium text-gray-400">Visitors</div>
-                    </div>
-                </div>
-                <div class="flex items-center">
-                    <img src="https://placehold.co/32x32" alt="" class="w-8 h-8 rounded-full object-cover block">
-
-                </div>
-            </div>
-            <div class="bg-white rounded-md border border-gray-100 p-6 shadow-md shadow-black/5">
-                <div class="flex justify-between mb-6">
-                    <div>
-                        <div class="text-2xl font-semibold mb-1"><span class="text-base font-normal text-gray-400 align-top">&dollar;</span>2,345</div>
-                        <div class="text-sm font-medium text-gray-400">Active orders</div>
-                    </div>
-                </div>
-                <a href="#" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
+                <a href="<?php echo URLROOT; ?>/tags" class="text-blue-500 font-medium text-sm hover:text-blue-600">View details</a>
             </div>
         </div>
 </main>
-<!-- end: Main -->
-
-<script src="https://unpkg.com/@popperjs/core@2"></script>
-
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
-<script src="https://unpkg.com/@popperjs/core@2"></script>
+</body>
 <?php require APPROOT . '/views/inc/dashboard_footer.php'; ?>
 
-</body>
-
-</html>

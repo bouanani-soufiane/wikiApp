@@ -124,4 +124,18 @@ class WikiDAO
         $statement->bindParam(':wikiId', $id, PDO::PARAM_INT);
         $statement->execute();
     }
+    public function countWiki() {
+        $query = "SELECT COUNT(*) AS wikiCount FROM wiki";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_OBJ);
+        return $result->wikiCount;
+    }
+
+
+
+
+
+
+
 }
