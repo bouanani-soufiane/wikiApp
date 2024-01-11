@@ -101,7 +101,6 @@ function showResults(artists, music) {
       </a>`
         )
         .join("")}
-              
           </div>
       </div>
   </div>
@@ -120,5 +119,5 @@ function showResults(artists, music) {
           
       </div>
   </div>
-</div>`;
-}
+    </div>`;
+    }

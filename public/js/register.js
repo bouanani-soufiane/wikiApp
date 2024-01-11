@@ -22,8 +22,8 @@ function fullnameValidate() {
 
 function emailValidate() {
     let email = document.getElementById("email").value;
-    let emailRegex = /^\w+[.-]?\w+@\w+.(com|net|org|ma|info/)/gi;
-    if (email.trim().length === 0) {
+    let emailRegex = /^\w+[.-]?\w+@\w+.(com|net|org|ma|info)/gi;
+    if (email.trim().length == 0) {
         email_error.innerHTML = "Email is required";
         return false;
     }
@@ -50,7 +50,7 @@ function passwordValidate() {
 function repeatPasswordValidate() {
     let repeatPassword = document.getElementById("repeatPassword").value;
     let password = document.getElementById("password").value;
-    if (repeatPassword.trim().length === 0) {
+    if (repeatPassword.trim().length == 0) {
         repeat_password_error.innerHTML = "Repeat Password is required";
         return false;
     }

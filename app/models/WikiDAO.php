@@ -207,7 +207,26 @@ class WikiDAO
         return $wikis;
     }
 
+    public function searchWiki(Wiki $wiki){
+        $wikiTitre = $wiki->getTitre();
 
+        $stmt = $this->conn->prepare("SELECT * FROM wiki JOIN user ON wiki.idUser = user.userId JOIN categorie ON wiki.idCategorie = categorie.categorieId WHERE wiki.wikiTitre LIKE CONCAT('%', 'd' ,'%');");
+        $stmt->bindValue(1, $wikiTitre, PDO::PARAM_STR);
+        $stmt->execute();
+
+        $wikis = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $wiki = new Wiki();
+            $wiki->setId($row['wikiId']);
+            $wiki->setTitre($row['wikiTitre']);
+            $wiki->setImage($row['wikiImage']);
+            $wiki->setDescription($row['description']);
+            $wiki->getCategory()->setName($row['categorieName']);
+            $wiki->getUser()->setName($row['userName']);
+            array_push($wikis, $wiki);
+        }
+        return $wikis;
+    }
 
 
 }

@@ -1,6 +1,7 @@
 <?php
-error_reporting(E_ALL);
 ini_set('display_errors', 1);
+ini_set('display_startup_errors', 1);
+error_reporting(E_ALL);
 
 class Wikis extends Controller {
     public function __construct(){
@@ -161,6 +162,30 @@ class Wikis extends Controller {
     public function countWiki(){
         $this->wikiModel->countWiki();
     }
+    public function getwikis(){
+        $data = json_decode(file_get_contents("php://input"), true);
+        $this->wikiModel->getWiki()->setTitre($data['search']);
+        $wikis =  $this->wikiModel->searchWiki($this->wikiModel->getWiki());
+        $array = [];
+        foreach ($wikis as $wiki) {
+            $data = [
+                'id' => $wiki->getId(),
+                'Titre' => $wiki->getTitre(),
+                'image' => $wiki->getImage(),
+                'Description' => $wiki->getDescription(),
+                'Category' => [
+                    'name' => $wiki->getCategory()->getName(),
+                ],
+                'user' => [
+                    'name' => $wiki->getUser()->getName(),
+                ]
+            ];
+            $array[] = $data;
+        }
+
+        echo json_encode($array);
+    }
+
 
 
 }
