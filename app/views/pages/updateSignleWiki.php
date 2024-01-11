@@ -4,13 +4,12 @@ if (!empty($data)) {
     if (!empty($data['categs'])) {
         $categs = $data['categs'];
     }
-    if (!empty($data['tags'])) {
-        $tags = $data['tags'];
-    }
-    if (!empty($data['wiki'])) {
-        $wiki = $data['wiki'];
+    if (isset($data['wiki'])) {
+        $wikiData = $data['wiki'];
+        list($wiki, $wikiTags) = $wikiData;
     }
 }
+
 ?>
 <main class="w-full max-h-screen transition-all main">
     <form method="post" action="<?php echo URLROOT?>/Wikis/update" enctype="multipart/form-data">
@@ -54,10 +53,10 @@ if (!empty($data)) {
                     <div class="mt-6">
                         <label for="tags" class="text-xl font-bold">Tags:</label>
                         <div class="flex flex-wrap items-start mt-2 gap-4">
-                            <?php foreach ($tags as $tag) : ?>
+                            <?php foreach ($wikiTags as $tag) : ?>
                                 <div class="flex items-center justify-center gap-2 bg-gray-200 px-4 py-2 rounded-md">
                                     <input type="checkbox" value="<?php echo $tag->getId();?>" name="tags" id="">
-                                    <label for="checkbox"><?php echo $tag->getName();?></label>
+                                    <label for="checkbox"><?php echo $tag->getTag()->getName(); ?></label>
                                 </div>
                             <?php endforeach; ?>
                         </div>

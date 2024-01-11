@@ -1,4 +1,7 @@
 <?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+
 class Wikis extends Controller {
     public function __construct(){
         $this->wikiModel = $this->model('WikiDAO');
@@ -20,7 +23,6 @@ class Wikis extends Controller {
 
     public function store(){
        if (isset($_POST["save"])) {
-
            if ($_POST['wikiTitle'] == ' ') {
                $title_error = 'Invalid wiki title';
            } else {
@@ -37,22 +39,25 @@ class Wikis extends Controller {
                $content_error = '';
            }
            if ($title_error == '' &&  $desc_error == '' && $content_error == '' ) {
-
-                   $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
-                   $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
-                   $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
-                   $tmp_name = $_FILES['image']['tmp_name'];
-                   $imageName = file_get_contents($tmp_name);
-                   $this->wikiModel->getWiki()->setImage($imageName);
-                   $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
-                   $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
+               $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
+               $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
+               $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
+               $tmp_name = $_FILES['image']['tmp_name'];
+               $imageName = file_get_contents($tmp_name);
+               $this->wikiModel->getWiki()->setImage($imageName);
+               $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
+               $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
                if ($this->wikiModel->create($this->wikiModel->getWiki())) {
 
-                   $idwiki = $this->wikiModel->getLastWikiId(7);
+                   $idwiki = $this->wikiModel->getLastWikiId($_SESSION['userId']);
+                   $tags = isset($_POST['tags']) ? $_POST['tags'] : [];
 
-                   $this->wikiTagModel->getWikiTag()->getTag()->setId(7);
-                   $this->wikiTagModel->getWikiTag()->getWiki()->setId($idwiki);
-                   $this->wikiTagModel->create($this->wikiTagModel->getWikiTag());
+                   foreach ($tags as $tagId) {
+                       $wikiTag = $this->wikiTagModel->getWikiTag();
+                       $wikiTag->getTag()->setId($tagId);
+                       $wikiTag->getWiki()->setId($idwiki);
+                       $this->wikiTagModel->create($wikiTag);
+                   }
 
                }
                    header('location: http://localhost/wikiApp');

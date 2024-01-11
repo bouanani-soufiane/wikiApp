@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__.'./entities/Wiki.php';
+require_once __DIR__.'./entities/WikiTag.php';
 
 class WikiDAO
 {
@@ -24,7 +25,6 @@ class WikiDAO
         $description = $wiki->getDescription();
         $wikiContent = $wiki->getContent();
         $wikiImage = $wiki->getImage();
-//        $idTag = $wiki->getTag()->getId();
         $idCategorie = $wiki->getCategory()->getId();
         $idUser = $wiki->getUser()->getId();
 
@@ -38,6 +38,9 @@ class WikiDAO
         $stmt->bindParam(':idUser', $idUser);
 
         $stmt->execute();
+
+
+        return true;
     }
     public function getLastWikiId($id)
     {
@@ -70,7 +73,7 @@ class WikiDAO
     }
     public function showLsatWikis()
     {
-        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId ORDER BY wiki.createdAt DESC limit 6;");
+        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId where isArchived = 0  ORDER BY wiki.createdAt DESC limit 6;");
         $stmt->execute();
         $wikis = array();
         while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
@@ -89,9 +92,9 @@ class WikiDAO
     }
     public function showSingleWiki($id)
     {
+        // Fetch wiki details
         $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName, user.userName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId LEFT JOIN user ON wiki.idUser = user.userId WHERE wikiId = :id;");
         $stmt->bindParam(':id', $id);
-
         $stmt->execute();
         $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -106,10 +109,29 @@ class WikiDAO
             $wiki->getCategory()->setName($row['categorieName']);
             $wiki->getUser()->setName($row['userName']);
             $wiki->getUser()->setId($row['idUser']);
-            return $wiki;
+
+            // Fetch wiki tags
+            $stmt = $this->conn->prepare("SELECT * FROM wikiTagView WHERE wikiId = :id;");
+            $stmt->bindParam(':id', $id);
+            $stmt->execute();
+            $tagsRows = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            $wikiTags = array();
+
+            foreach ($tagsRows as $tagsRow) {
+                $wikiTag = new WikiTag();
+                $wikiTag->getTag()->setId($tagsRow['tagId']);
+                $wikiTag->getTag()->setName($tagsRow['tagName']);
+                $wikiTag->getWiki()->setId($row['wikiId']);
+                array_push($wikiTags, $wikiTag);
+            }
+
+            return [$wiki, $wikiTags];
         }
+
         return null;
     }
+
     public function update(Wiki $wiki)
     {
         $wikiId = $wiki->getId();

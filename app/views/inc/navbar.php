@@ -13,10 +13,10 @@
         <div class="hidden lg:flex lg:items-center lg:w-auto">
             <ul class="ml-auto hidden lg:flex lg:items-center lg:w-auto space-x-4">
                 <li>
-                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/categories/categories">Categories</a>
+                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>">Home</a>
                 </li>
                 <li>
-                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>">Blog</a>
+                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/categories/categories">Categories</a>
                 </li>
             </ul>
         </div>

@@ -72,7 +72,23 @@ if (!empty($data)) {
                                     <div class="text-left font-medium text-green-500"><?php echo mb_strimwidth($wiki->getContent(), 0, 250, '...');?></div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500"><?=$wiki->getIsArchived()?></div>
+                                    <div class="text-left font-medium text-green-500">
+
+                                    <?php
+                                    if($wiki->getIsArchived() == 1){
+                                        echo 'archived';
+                                    }else{
+                                        echo '';
+                                    }
+
+
+
+                                    ?>
+
+
+
+
+                                    </div>
                                 </td>
                                 <td class="p-2 whitespace-nowrap">
                                     <form method="post" class="mx-2" action="<?php echo URLROOT?>/Wikis/archive/<?=$wiki->getId()?>">

@@ -52,7 +52,7 @@ if (!empty($data)) {
                         <div class="flex flex-wrap items-start mt-2 gap-4">
                             <?php foreach ($tags as $tag) : ?>
                                 <div class="flex items-center justify-center gap-2 bg-gray-200 px-4 py-2 rounded-md">
-                                    <input type="checkbox" value="<?php echo $tag->getId();?>" name="tags" id="">
+                                    <input type="checkbox" value="<?php echo $tag->getId();?>" name="tags[]" id="">
                                     <label for="checkbox"><?php echo $tag->getName();?></label>
                                 </div>
                             <?php endforeach; ?>
