@@ -103,9 +103,11 @@ class Wikis extends Controller {
                 $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
                 $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
                 $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
-                $tmp_name = $_FILES['image']['tmp_name'];
-                $imageName = file_get_contents($tmp_name);
-                $this->wikiModel->getWiki()->setImage($imageName);
+                if ($_FILES['image']['size'] > 0) {
+                    $tmp_name = $_FILES['image']['tmp_name'];
+                    $imageName = file_get_contents($tmp_name);
+                    $this->wikiModel->getWiki()->setImage($imageName);
+                }
                 $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
                 $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
 

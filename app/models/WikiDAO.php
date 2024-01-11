@@ -110,26 +110,37 @@ class WikiDAO
         }
         return null;
     }
-    public function update(Wiki $wiki){
+    public function update(Wiki $wiki)
+    {
         $wikiId = $wiki->getId();
         $wikiTitre = $wiki->getTitre();
         $description = $wiki->getDescription();
         $wikiContent = $wiki->getContent();
-        $wikiImage = $wiki->getImage();
         $idCategorie = $wiki->getCategory()->getId();
-        $idUser = $wiki->getUser()->getId();
 
-        $query = "UPDATE wiki SET wikiTitre = :wikiTitre, description = :description, wikiContent = :wikiContent, wikiImage = :wikiImage, idCategorie = :idCategorie WHERE wikiId = :wikiId";
+        $query = "UPDATE wiki SET wikiTitre = :wikiTitre, description = :description, wikiContent = :wikiContent, idCategorie = :idCategorie";
+
+        if ($wiki->getImage() !== null) {
+            $query .= ", wikiImage = :wikiImage";
+            $wikiImage = $wiki->getImage();
+        }
+
+        $query .= " WHERE wikiId = :wikiId";
+
         $statement = $this->conn->prepare($query);
         $statement->bindParam(':wikiId', $wikiId, PDO::PARAM_INT);
         $statement->bindParam(':wikiTitre', $wikiTitre, PDO::PARAM_STR);
         $statement->bindParam(':description', $description, PDO::PARAM_STR);
         $statement->bindParam(':wikiContent', $wikiContent, PDO::PARAM_STR);
-        $statement->bindParam(':wikiImage', $wikiImage);
         $statement->bindParam(':idCategorie', $idCategorie, PDO::PARAM_INT);
+
+        if ($wiki->getImage() !== null) {
+            $statement->bindParam(':wikiImage', $wikiImage);
+        }
 
         $statement->execute();
     }
+
     public function delete($id){
 
         $query = "DELETE FROM wiki WHERE wikiId = :wikiId";
