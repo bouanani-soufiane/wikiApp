@@ -7,8 +7,8 @@ class Pages extends Controller {
         $this->wikiTagModel = $this->model('WikiTagDAO');
     }
     public function index(){
-        $categs = $this->categoryModel->showCategories();
-        $wiki = $this->wikiModel->showWiki();
+        $categs = $this->categoryModel->showLastThreeCategories();
+        $wiki = $this->wikiModel->showLsatWikis();
         $tags = $this->tagModel->showTags();
         $this->view('pages/index',['categs'=>$categs , 'wiki'=>$wiki]);
     }

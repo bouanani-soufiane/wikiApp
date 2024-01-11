@@ -68,6 +68,25 @@ class WikiDAO
         }
         return $wikis;
     }
+    public function showLsatWikis()
+    {
+        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId ORDER BY wiki.createdAt DESC limit 6;");
+        $stmt->execute();
+        $wikis = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $wiki = new Wiki();
+            $wiki->setId($row['wikiId']);
+            $wiki->setTitre($row['wikiTitre']);
+            $wiki->setDescription($row['description']);
+            $wiki->setContent($row['wikiContent']);
+            $wiki->setImage($row['wikiImage']);
+            $wiki->setCreatedAt($row['createdAt']);
+            $wiki->setIsArchived($row['isArchived']);
+            $wiki->getCategory()->setName($row['categorieName']);
+            array_push($wikis, $wiki);
+        }
+        return $wikis;
+    }
     public function showSingleWiki($id)
     {
         $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName, user.userName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId LEFT JOIN user ON wiki.idUser = user.userId WHERE wikiId = :id;");

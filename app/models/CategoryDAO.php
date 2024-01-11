@@ -71,5 +71,21 @@ class CategoryDAO
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result->categCount;
     }
+    public function showLastThreeCategories()
+    {
+        $query = "SELECT * FROM categorie ORDER BY categorie.categorieId DESC LIMIT 6";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
+        $categories = array();
+        while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
+            $category = new Category();
 
+            $category->setId($row['categorieId']);
+            $category->setName($row['categorieName']);
+            $category->setImage($row['categorieImage']);
+
+            array_push($categories, $category);
+        }
+        return $categories;
+    }
 }
