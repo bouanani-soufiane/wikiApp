@@ -117,7 +117,7 @@ if (!empty($data)) {
                                 </div>
                             </form>
                             <div class="my-2">
-                                <button data-categ-id="<?php echo $categ->getId();?>" data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="mt-2 py-2 px-4 bg-green-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" type="button">
+                                <button data-categ-name="<?php echo $categ->getName();?>"   data-categ-id="<?php echo $categ->getId();?>" data-modal-target="edit-modal" data-modal-toggle="edit-modal" class="mt-2 py-2 px-4 bg-green-500 text-white rounded-md hover:bg-blue-600 focus:outline-none focus:shadow-outline-blue active:bg-blue-800" type="button">
                                     <i class='ri-edit-box-fill'></i>
                                 </button>
 
@@ -140,7 +140,7 @@ if (!empty($data)) {
                                                     <div class="col-span-2">
                                                         <input type="hidden" value="<?php echo $categ->getId();?>" name="idCateg">
                                                         <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Categorie Name</label>
-                                                        <input type="text" name="CategorieName" id="name" class="bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0" placeholder="Name" required="">
+                                                        <input type="text" id="nameCatg" name="CategorieName" id="name" class="bg-white text-gray-900 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:placeholder-gray-400  outline-0" placeholder="Name" required="">
                                                     </div>
                                                 </div>
                                                 <div class="grid gap-4 mb-4 grid-cols-2">
