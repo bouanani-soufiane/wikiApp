@@ -51,19 +51,31 @@ class CategoryDAO
         $statement->bindParam(':Id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
-    public function edit(Category $category){
+    public function edit(Category $category)
+    {
         $id = $category->getId();
         $name = $category->getName();
         $categorieImage = $category->getImage();
 
-        $query = "UPDATE categorie SET categorieName = :name, categorieImage = :image WHERE categorieId = :id";
+        $query = "UPDATE categorie SET categorieName = :name";
+
+        if ($categorieImage !== null) {
+            $query .= ", categorieImage = :image";
+        }
+
+        $query .= " WHERE categorieId = :id";
+
         $statement = $this->conn->prepare($query);
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
-        $statement->bindParam(':image', $categorieImage, PDO::PARAM_LOB);
+
+        if ($categorieImage !== null) {
+            $statement->bindParam(':image', $categorieImage, PDO::PARAM_LOB);
+        }
 
         $statement->execute();
     }
+
     public function countCateg() {
         $query = "SELECT COUNT(*) AS categCount FROM categorie";
         $statement = $this->conn->prepare($query);

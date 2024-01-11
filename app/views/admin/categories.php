@@ -168,6 +168,8 @@ if (!empty($data)) {
 
         </div>
     </div>
-<?php
+    <script src="<?php echo URLROOT; ?>/js/category.js"></script>
+
+    <?php
 require APPROOT . '/views/inc/dashboard_footer.php';
 ?>

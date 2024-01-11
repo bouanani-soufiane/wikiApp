@@ -15,9 +15,9 @@ if (!empty($data)) {
             <div>
                 <div class="flex items-center mb-1">
                     <div class="text-2xl font-semibold"><i class="ri-file-copy-2-fill"></i> <?php echo $countWiki?></div>
-                    <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Categorie</div>
+                    <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Wikis</div>
                 </div>
-                <div class="text-sm font-medium text-gray-400">Categorie</div>
+                <div class="text-sm font-medium text-gray-400">Wikis</div>
             </div>
         </div>
         <div class="flex items-center">

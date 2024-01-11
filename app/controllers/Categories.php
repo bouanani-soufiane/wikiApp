@@ -55,9 +55,14 @@ class Categories extends Controller {
             if ($error_categ == '') {
                 $this->categoryModel->getCategory()->setId(trim($_POST['idCateg']));
                 $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
-                $tmp_name = $_FILES['categorieImage']['tmp_name'];
-                $imageName = file_get_contents($tmp_name);
-                $this->categoryModel->getCategory()->setImage($imageName);
+                if ($_FILES['categorieImage']['size'] > 0) {
+                    $tmp_name = $_FILES['categorieImage']['tmp_name'];
+                    $imageName = file_get_contents($tmp_name);
+                    $this->categoryModel->getCategory()->setImage($imageName);
+                }
+//                $tmp_name = $_FILES['categorieImage']['tmp_name'];
+//                $imageName = file_get_contents($tmp_name);
+//                $this->categoryModel->getCategory()->setImage($imageName);
                 if ($this->categoryModel->edit($this->categoryModel->getCategory())) {
                     $this->view('admin/categories');
                 } else {

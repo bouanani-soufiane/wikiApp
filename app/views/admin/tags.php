@@ -15,10 +15,10 @@ if (!empty($data)) {
             <div>
                 <div class="flex items-center mb-1">
                     <div class="text-2xl font-semibold"><i class="ri-file-copy-2-fill"></i> <?php echo $countTag?></div>
-                    <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">Categorie</div>
+                    <div class="p-1 rounded bg-emerald-500/10 text-emerald-500 text-[12px] font-semibold leading-none ml-2">tags</div>
 
                 </div>
-                <div class="text-sm font-medium text-gray-400">Categorie</div>
+                <div class="text-sm font-medium text-gray-400">Tags</div>
             </div>
         </div>
         <div class="flex items-center">
@@ -33,7 +33,7 @@ if (!empty($data)) {
             <div class="font-medium">All Tags</div>
             <div class="font-medium">
 
-                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="block text-white bg-[#313866]  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
+                <button data-modal-target="crud-modal" data-modal-toggle="crud-modal" class="editTag block text-white bg-[#313866]  focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center " type="button">
                     Add Tag
                 </button>
 
@@ -145,6 +145,8 @@ if (!empty($data)) {
 
         </div>
     </div>
+    <script src="<?php echo URLROOT; ?>/js/tag.js"></script>
+
     <?php
     require APPROOT . '/views/inc/dashboard_footer.php';
     ?>
