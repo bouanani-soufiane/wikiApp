@@ -4,6 +4,9 @@ if (!empty($data)) {
     if (!empty($data['categs'])) {
         $categs = $data['categs'];
     }
+    if (!empty($data['tags'])) {
+        $tags = $data['tags'];
+    }
     if (isset($data['wiki'])) {
         $wikiData = $data['wiki'];
         list($wiki, $wikiTags) = $wikiData;
@@ -51,12 +54,23 @@ if (!empty($data)) {
                         </div>
                     </div>
                     <div class="mt-6">
-                        <label for="tags" class="text-xl font-bold">Tags:</label>
-                        <div class="flex flex-wrap items-start mt-2 gap-4">
+                        <label for="tags" class="text-xl font-bold">Old Tags To Delete <i class="ri-delete-bin-6-line"></i> :</label>
+                        <div class="flex flex-wrap items-start mt-2 gap-4 ">
                             <?php foreach ($wikiTags as $tag) : ?>
+                                <div class="flex items-center justify-center gap-2 bg-gray-200 px-4 py-2 rounded-md bg-red-500">
+                                    <input type="checkbox" value="<?php echo $tag->getTag()->getId();?>" name="deletetags[]" id="">
+                                    <label for="checkbox" class="text-white"><?php echo $tag->getTag()->getName(); ?></label>
+                                </div>
+                            <?php endforeach; ?>
+                        </div>
+                    </div>
+                    <div class="mt-6">
+                        <label for="tags" class="text-xl font-bold">Add New Tags <i class="ri-add-box-line"></i>:</label>
+                        <div class="flex flex-wrap items-start mt-2 gap-4">
+                            <?php foreach ($tags as $tag) : ?>
                                 <div class="flex items-center justify-center gap-2 bg-gray-200 px-4 py-2 rounded-md">
-                                    <input type="checkbox" value="<?php echo $tag->getId();?>" name="tags" id="">
-                                    <label for="checkbox"><?php echo $tag->getTag()->getName(); ?></label>
+                                    <input type="checkbox" value="<?php echo $tag->getId();?>" name="addtags[]" id="">
+                                    <label for="checkbox"><?php echo $tag->getName(); ?></label>
                                 </div>
                             <?php endforeach; ?>
                         </div>
@@ -71,3 +85,4 @@ if (!empty($data)) {
         </div>
     </form>
 </main>
+<?php //require APPROOT . '/views/inc/footer.php'; ?>

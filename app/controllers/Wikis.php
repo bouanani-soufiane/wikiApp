@@ -115,8 +115,20 @@ class Wikis extends Controller {
                 }
                 $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
                 $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
+                if(isset($_POST['deletetags'])){
+                    $this->wikiTagModel->delete($_POST['deletetags'], $_POST['id']);
+                }
+                if(isset($_POST['addtags'])){
+                    $tags = isset($_POST['addtags']) ? $_POST['addtags'] : [];
 
+                    foreach ($tags as $tagId) {
+                        $wikiTag = $this->wikiTagModel->getWikiTag();
+                        $wikiTag->getTag()->setId($tagId);
+                        $wikiTag->getWiki()->setId($_POST['id']);
+                        $this->wikiTagModel->create($wikiTag);
+                    }                }
                 if ($this->wikiModel->update($this->wikiModel->getWiki())) {
+
                     $this->view('pages/updateSingleWiki');
                 } else {
                     $error_wiki = [

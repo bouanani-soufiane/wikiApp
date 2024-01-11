@@ -36,4 +36,14 @@ class WikiTagDAO
 
         $stmt->execute();
     }
+
+    public function delete($tagIds, $idWiki){
+        $ids = implode(',', $tagIds);
+        $stmt = $this->conn->prepare("DELETE FROM wikitag WHERE wikiId = :idWiki AND tagId IN ({$ids})");
+        $stmt->bindParam(':idWiki', $idWiki);
+        $stmt->execute();
+    }
+
+
+
 }
