@@ -1,0 +1,20 @@
+.input-group {
+    position: relative;
+}
+
+.input-group span {
+    position: absolute;
+    bottom: 12px;
+    right: 17px;
+    font-size: 14px;
+    color: red;
+}
+
+#submit-error {
+    color: red;
+}
+
+.input-group label {
+    flex-basis: 28%;
+
+}

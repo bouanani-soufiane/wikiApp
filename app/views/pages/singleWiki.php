@@ -48,10 +48,6 @@ if (!empty($data)) {
                 <span class="ml-1"><?php echo $wiki->getCategory()->getName(); ?></span>
             </a>
 
-
-
-
-
         </div>
 
         <div class="py-5 text-sm font-regular text-gray-900 flex items-center justify-center mb-4">
@@ -63,8 +59,6 @@ if (!empty($data)) {
                 <?php endif; ?>
             </a>
         </div>
-
-
     </div>
 
 </div>

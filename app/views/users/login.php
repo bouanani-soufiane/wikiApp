@@ -10,12 +10,13 @@
                             <form action="<?php echo URLROOT; ?>/users/login" method="post">
                                 <div class="mb-4">
                                     <label for="email" class="block text-gray-700 text-sm font-bold mb-2">Email: <sup>*</sup></label>
-                                    <input type="email" name="email" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    <input id="email" type="email" name="email" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     <span class="invalid-feedback"><?php echo $data['email_error'];?></span>
+                                    <span id="errorEmail" class="invalid-feedback"></span>
                                 </div>
                                 <div class="mb-4">
                                     <label for="password" class="block text-gray-700 text-sm font-bold mb-2">Password: <sup>*</sup></label>
-                                    <input type="password" name="password" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
+                                    <input id="password" type="password" name="password" class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline">
                                     <span class="invalid-feedback"><?php echo $data['password_error'];?></span>
                                 </div>
                                 <div class="flex justify-between">
@@ -32,4 +33,6 @@
                 </div>
             </div>
         </div>
+    <script src="<?php echo URLROOT; ?>/js/login.js"></script>
+T
 <?php require APPROOT . '/views/inc/footer.php'; ?>

@@ -9,6 +9,7 @@
     <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
 
     <link rel="stylesheet" href="<?php echo URLROOT; ?>css/style.css">
+
     <title><?php echo SITENAME; ?></title>
 </head>
 <body>

@@ -43,3 +43,14 @@ CREATE TABLE wikiTag
     FOREIGN KEY (wikiId) REFERENCES wiki (wikiId) ON DELETE CASCADE ON UPDATE CASCADE,
     FOREIGN KEY (tagId) REFERENCES tag (tagId) ON DELETE CASCADE ON UPDATE CASCADE
 );
+
+CREATE VIEW wikiTagView AS
+SELECT
+    wiki.wikiId,
+    wiki.wikiTitre,
+    tag.tagId,
+    tag.tagName
+FROM
+    wiki
+        LEFT JOIN wikiTag ON wiki.wikiId = wikiTag.wikiId
+        LEFT JOIN tag ON wikiTag.tagId = tag.tagId;
