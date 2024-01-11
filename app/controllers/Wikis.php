@@ -74,6 +74,10 @@ class Wikis extends Controller {
         $wiki = $this->wikiModel->showSingleWiki($id);
         $this->view('pages/singleWiki',['wiki'=>$wiki ]);
     }
+    public function showWikiCateg($id){
+        $wiki = $this->wikiModel->showWikiCateg($id);
+        $this->view('pages/WikiCateg',['wiki'=>$wiki ]);
+    }
     public function edit($id){
         $wiki = $this->wikiModel->showSingleWiki($id);
         $categs = $this->categoryModel->showCategories();

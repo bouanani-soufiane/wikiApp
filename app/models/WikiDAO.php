@@ -86,6 +86,7 @@ class WikiDAO
             $wiki->setCreatedAt($row['createdAt']);
             $wiki->getCategory()->setName($row['categorieName']);
             $wiki->getUser()->setName($row['userName']);
+            $wiki->getUser()->setId($row['idUser']);
             return $wiki;
         }
         return null;
@@ -133,7 +134,26 @@ class WikiDAO
     }
 
 
-
+    public function showWikiCateg($id)
+    {
+        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId where categorie.categorieId = :id ORDER BY wiki.createdAt DESC;");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->execute();
+        $wikis = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $wiki = new Wiki();
+            $wiki->setId($row['wikiId']);
+            $wiki->setTitre($row['wikiTitre']);
+            $wiki->setDescription($row['description']);
+            $wiki->setContent($row['wikiContent']);
+            $wiki->setImage($row['wikiImage']);
+            $wiki->setCreatedAt($row['createdAt']);
+            $wiki->setIsArchived($row['isArchived']);
+            $wiki->getCategory()->setName($row['categorieName']);
+            array_push($wikis, $wiki);
+        }
+        return $wikis;
+    }
 
 
 

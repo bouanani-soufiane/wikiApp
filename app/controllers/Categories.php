@@ -77,4 +77,10 @@ class Categories extends Controller {
     public function countCateg(){
         $this->categoryModel->countCateg();
     }
+
+    public function categories(){
+        $categs = $this->categoryModel->showCategories();
+        $this->view('pages/categories',['categs'=>$categs ]);
+
+    }
 }

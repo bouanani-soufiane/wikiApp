@@ -7,7 +7,7 @@ class Users extends Controller {
     public function register(){
         if (isset($_POST["registre"])) {
 
-            if (!preg_match('/^[a-zA-Z\s]+$/', $_POST['name'])) {
+            if (!preg_match('/^[a-zA-Z\s]+$/', $_POST['name']) || trim($_POST['name']) === '') {
                 $name_error = 'Invalid name format';
             } else {
                 $name_error = '';
@@ -107,7 +107,7 @@ class Users extends Controller {
                     'email_error' => 'user not found',
                     'password_error' => $password_error
                 ];
-                $this->view('pages/index', $error_user);
+                $this->view('users/login', $error_user);
             }else{
                 $error_user = [
                     'email_error' => 'user not found',
@@ -126,7 +126,7 @@ class Users extends Controller {
     public function logout()
     {
         session_destroy();
-        header('location:/paroly/public/home/login');
+        header('location: http://localhost/wikiApp/users/login');
     }
     public function index()
     {

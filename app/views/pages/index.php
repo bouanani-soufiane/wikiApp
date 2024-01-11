@@ -15,6 +15,7 @@ if (!empty($data)) {
     }
 }
 ?>
+
 <div class="fixed top-0 left-0 w-full h-full bg-black/50 z-40 md:hidden sidebar-overlay"></div>
 <section>
     <div class="bg-gray-800">
@@ -38,6 +39,9 @@ if (!empty($data)) {
         </div>
     </div>
 </section>
+
+                                                                                                                                                                                                                                                                                                                    <style>.categ-image {width: 100%;height: 200px;object-fit: cover; }</style>
+
 <div class="font-sans mx-auto max-w-screen-lg text-black mt-5 bg-white flex items-center justify-between">
     <div class="border rounded overflow-hidden flex items-center justify-center w-full">
         <input type="text" class="px-4 w-full py-2" placeholder="Search...">
@@ -45,22 +49,51 @@ if (!empty($data)) {
             <i class="ri-search-line"></i>
         </button>
     </div>
-    <a href="<?php echo URLROOT; ?>/Wikis/create" class="flex items-center text-gray-700 hover:text-black ml-4 px-4 py-2 bg-gray-200 rounded">
-        <i class="ri-pencil-line"></i>
-    </a>
+    <?php if (isset($_SESSION['userId'])) : ?>
+        <a href="<?php echo URLROOT; ?>/Wikis/create" class="flex items-center text-gray-700 hover:text-black ml-4 px-4 py-2 bg-gray-200 rounded">
+            <i class="ri-pencil-line"></i>
+        </a>
+    <?php endif; ?>
+
 
 </div>
     <!-- Categories Section -->
     <div class="mt-4 flex items-center justify-center ">
         <div class="flex space-x-4 ">
-            <?php foreach ($categs as $categ) : ?>
-                <div class="bg-gray-200 p-2 rounded"><?php echo $categ->getName();?></div>
-            <?php endforeach; ?>
+            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+                les dernières catégories</h1>
         </div>
     </div>
 
+
 <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
     <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
+        <?php foreach ($categs as $categ) : ?>
+            <div class="rounded ">
+                <a href="<?php echo URLROOT; ?>/Wikis/showWikiCateg/<?php echo $categ->getId();?>">
+                    <div class="relative h-full">
+                        <img class="w-full" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($categ->getImage()); ?>" alt="Sunset in the mountains">
+                        <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
+                        <a href="<?php echo URLROOT; ?>/Wikis/showWikiCateg/<?php echo $categ->getId();?>">
+                            <div class="absolute w-full bottom-0 left-0 bg-black  px-4 py-4 text-white text-md text-center hover:bg-white hover:text-black transition duration-500 ease-in-out">
+                                <?php echo $categ->getName();?>
+                            </div>
+                        </a>
+                    </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
+    </div>
+</div>
+<div class="mt-4 flex items-center justify-center ">
+    <div class="flex space-x-4 ">
+        <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+            les dernières wikis</h1>
+    </div>
+</div>
+        <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
+
             <?php foreach ($wikis as $wiki) : ?>
                 <div class="rounded overflow-hidden shadow-lg">
                     <a href="<?php echo URLROOT; ?>/Wikis/showSingle/<?php echo $wiki->getId();?>">

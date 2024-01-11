@@ -8,6 +8,8 @@
 </body>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/flowbite/2.2.1/flowbite.min.js"></script>
 <script src="https://unpkg.com/@popperjs/core@2"></script>
+<script src="<?php echo URLROOT; ?>/js/main.js"></script>
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const editButtons = document.querySelectorAll('[data-modal-target="edit-modal"]');
