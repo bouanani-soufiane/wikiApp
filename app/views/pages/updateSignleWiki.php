@@ -29,7 +29,7 @@ if (!empty($data)) {
                         </div>
                         <div class="flex flex-1 flex-col gap-4">
                             <label for="image" class="text-lx">Add Cover Image:</label>
-                            <input type="file" placeholder="image" id="image" name="image"
+                            <input type="file" placeholder="image" id="image" name="image" value="<?php echo $wiki->getImage();?>"
                                    class="outline-none py-2 px-2 text-md border-2 rounded-md flex-1"/>
                         </div>
                     </div>

@@ -77,7 +77,7 @@ function showResults(wikis) {
     <div class="mt-4 flex items-center justify-center ">
         <div class="flex space-x-4 ">
             <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
-                all ${searchBar}  wikis</h1>
+                wikis par titre</h1>
         </div>
     </div>
         <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
@@ -125,6 +125,8 @@ function showResults(wikis) {
                     <span class="ml-1"><?php echo calculateReadingTime($wiki->3 mins reading</span></span>
                     </div>
                 </div>
+                
+                
 `
         )
         .join("")}
@@ -134,8 +136,35 @@ function showResults(wikis) {
 
         </div>
     </div>
-    
-    
-    
+    <div class="mt-4 flex items-center justify-center ">
+        <div class="flex space-x-4 ">
+            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+                category par Name</h1>
+        </div>
+    </div>
+    <div class="max-w-screen-xl mx-auto p-5 sm:p-10 md:p-16">
+        <div class="grid grid-cols-1 md:grid-cols-3 sm:grid-cols-2 gap-10">
+       ${wikis.map((wikidata) => `
+                    <div class="rounded ">
+                    <a href="/wikiApp/public/Wikis/showWikiCateg/${wikidata.Category.id}">
+                        <div class="relative h-full">
+                        
+                            <img class="w-full" src="/wikiApp/public/../img/${wikidata.Category.image}"alt="">
+                            <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
+                               <a href="/wikiApp/public/Wikis/showWikiCateg/${wikidata.Category.id}">
+
+                                <div class="absolute w-full bottom-0 left-0 bg-black  px-4 py-4 text-white text-md text-center hover:bg-white hover:text-black transition duration-500 ease-in-out">
+                                           ${wikidata.Category.name}
+                                </div>
+                            </a>
+                        </div>
+                    </a>
+                </div>
+            
+            `
+        )
+        .join("")}
+          </div>
+    </div>
     `;
 }

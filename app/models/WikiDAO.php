@@ -210,8 +210,13 @@ class WikiDAO
     public function searchWiki($wikiTitre){
 
 
-        $stmt = $this->conn->prepare("SELECT * FROM wiki JOIN user ON wiki.idUser = user.userId JOIN categorie ON wiki.idCategorie = categorie.categorieId WHERE wiki.wikiTitre LIKE CONCAT('%', ?, '%');");
+        $stmt = $this->conn->prepare("
+SELECT DISTINCT wiki.*, user.*, categorie.* FROM wiki JOIN user ON wiki.idUser = user.userId JOIN categorie ON wiki.idCategorie = categorie.categorieId WHERE wiki.wikiTitre LIKE CONCAT('%', ?, '%') OR categorie.categorieName LIKE CONCAT('%', ?, '%');
+
+
+");
         $stmt->bindValue(1, $wikiTitre, PDO::PARAM_STR);
+        $stmt->bindValue(2, $wikiTitre, PDO::PARAM_STR);
         $stmt->execute();
 
         $wikis = array();
@@ -222,6 +227,8 @@ class WikiDAO
             $wiki->setDescription($row['description']);
             $wiki->setImage($row['wikiImage']);
             $wiki->getCategory()->setName($row['categorieName']);
+            $wiki->getCategory()->setImage($row['categorieImage']);
+            $wiki->getCategory()->setId($row['categorieId']);
             $wiki->getUser()->setName($row['userName']);
             array_push($wikis, $wiki);
         }

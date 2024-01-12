@@ -9,7 +9,7 @@ CREATE TABLE `user` (
 CREATE TABLE `categorie` (
     `categorieId` int(11) NOT NULL AUTO_INCREMENT,
     `categorieName` varchar(255) DEFAULT NULL,
-    `categorieImage` longblob DEFAULT NULL,
+    `categorieImage` VARCHAR(255) DEFAULT NULL,
         PRIMARY KEY (`categorieId`)
 );
 CREATE TABLE `tag` (
@@ -23,7 +23,7 @@ CREATE TABLE `wiki` (
     `wikiTitre` varchar(255) DEFAULT NULL,
     `description` varchar(500) DEFAULT NULL,
     `wikiContent` text DEFAULT NULL,
-    `wikiImage` longblob DEFAULT NULL,
+    `wikiImage` VARCHAR(255) DEFAULT NULL,
     `isArchived` tinyint(1) DEFAULT 0,
     `createdAt` timestamp NOT NULL DEFAULT current_timestamp(),
     `idCategorie` int(11) DEFAULT NULL,

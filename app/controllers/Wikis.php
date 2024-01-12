@@ -215,6 +215,8 @@ class Wikis extends Controller {
                 'image' => $wiki->getImage(),
                 'Category' => [
                     'name' => $wiki->getCategory()->getName(),
+                    'image' => $wiki->getCategory()->getImage(),
+                    'id' => $wiki->getCategory()->getId(),
                 ],
                 'user' => [
                     'name' => $wiki->getUser()->getName(),
