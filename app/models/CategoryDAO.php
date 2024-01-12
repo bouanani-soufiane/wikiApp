@@ -57,6 +57,7 @@ class CategoryDAO
         $name = $category->getName();
         $categorieImage = $category->getImage();
 
+
         $query = "UPDATE categorie SET categorieName = :name";
 
         if ($categorieImage !== null) {

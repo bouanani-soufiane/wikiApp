@@ -18,7 +18,7 @@ if (!empty($data)) {
     <div class="mb-10 rounded overflow-hidden flex flex-col mx-auto text-center">
         <a href="#" class="max-w-3xl mx-auto space-y-4 text-xl sm:text-5xl mb-6  font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-6"><?php echo $wiki->getTitre(); ?></a>
         <a href="#">
-            <img class="w-full my-4 mb-6" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($wiki->getImage()); ?>" alt="Sunset in the mountains">
+            <img class="w-full my-4 mb-6" src="<?= URLROOT ?>/img/<?php echo ($wiki->getImage()); ?>" alt="Sunset in the mountains">
         </a>
         <a href="#" class="max-w-3xl mx-auto text-xl sm:text-2xl font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-6"><?php echo $wiki->getDescription(); ?></a>
 

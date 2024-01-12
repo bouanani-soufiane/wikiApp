@@ -24,6 +24,30 @@ class Wikis extends Controller {
 
     public function store(){
        if (isset($_POST["save"])) {
+           if (isset($_FILES['image'])) {
+               $uploadedFile = $_FILES['image'];
+               $name = $uploadedFile['name'];
+               $size = $uploadedFile['size'];
+               $tmp_name = $uploadedFile['tmp_name'];
+               $error = $uploadedFile['error'];
+
+               $imgName = uploadImage($name, $tmp_name, $size, $error);
+               if (is_int($imgName)) {
+                   switch ($imgName) {
+                       case 1:
+                           echo 'Sorry your file is too large. (max 10mb)';
+                           break;
+                       case 2:
+                           echo 'Unsupported format. (jpg, jpeg, png, webp)';
+                           break;
+                       default:
+                           echo 'Unkown error occured';
+                           break;
+                   }
+               }
+           } else $imgName = null;
+
+
            if ($_POST['wikiTitle'] == ' ') {
                $title_error = 'Invalid wiki title';
            } else {
@@ -43,9 +67,7 @@ class Wikis extends Controller {
                $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
                $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
                $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
-               $tmp_name = $_FILES['image']['tmp_name'];
-               $imageName = file_get_contents($tmp_name);
-               $this->wikiModel->getWiki()->setImage($imageName);
+               $this->wikiModel->getWiki()->setImage($imgName);
                $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
                $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
                if ($this->wikiModel->create($this->wikiModel->getWiki())) {
@@ -93,7 +115,28 @@ class Wikis extends Controller {
     public function update(){
         if(isset($_POST['save'])){
             $title_error = $desc_error = $content_error = '';
+            if (isset($_FILES['image'])) {
+                $uploadedFile = $_FILES['image'];
+                $name = $uploadedFile['name'];
+                $size = $uploadedFile['size'];
+                $tmp_name = $uploadedFile['tmp_name'];
+                $error = $uploadedFile['error'];
 
+                $imgName = uploadImage($name, $tmp_name, $size, $error);
+                if (is_int($imgName)) {
+                    switch ($imgName) {
+                        case 1:
+                            echo 'Sorry your file is too large. (max 10mb)';
+                            break;
+                        case 2:
+                            echo 'Unsupported format. (jpg, jpeg, png, webp)';
+                            break;
+                        default:
+                            echo 'Unkown error occured';
+                            break;
+                    }
+                }
+            } else $imgName = null;
             if (empty(trim($_POST['wikiTitle']))) {
                 $title_error = 'Invalid wiki title';
             }
@@ -109,11 +152,8 @@ class Wikis extends Controller {
                 $this->wikiModel->getWiki()->setTitre(trim($_POST['wikiTitle']));
                 $this->wikiModel->getWiki()->setDescription(trim($_POST['wikiDescription']));
                 $this->wikiModel->getWiki()->setContent(trim($_POST['wikiContent']));
-                if ($_FILES['image']['size'] > 0) {
-                    $tmp_name = $_FILES['image']['tmp_name'];
-                    $imageName = file_get_contents($tmp_name);
-                    $this->wikiModel->getWiki()->setImage($imageName);
-                }
+                $this->wikiModel->getWiki()->setImage($imgName);
+
                 $this->wikiModel->getWiki()->getUser()->setId($_SESSION['userId']);
                 $this->wikiModel->getWiki()->getCategory()->setId(trim($_POST['category']));
                 if(isset($_POST['deletetags'])){
@@ -164,15 +204,15 @@ class Wikis extends Controller {
     }
     public function getwikis(){
         $data = json_decode(file_get_contents("php://input"), true);
-        $this->wikiModel->getWiki()->setTitre($data['search']);
-        $wikis =  $this->wikiModel->searchWiki($this->wikiModel->getWiki());
+
+        $wikis =  $this->wikiModel->searchWiki($data['search']);
         $array = [];
         foreach ($wikis as $wiki) {
             $data = [
                 'id' => $wiki->getId(),
                 'Titre' => $wiki->getTitre(),
-                'image' => $wiki->getImage(),
                 'Description' => $wiki->getDescription(),
+                'image' => $wiki->getImage(),
                 'Category' => [
                     'name' => $wiki->getCategory()->getName(),
                 ],
@@ -189,5 +229,4 @@ class Wikis extends Controller {
 
 
 }
-
 

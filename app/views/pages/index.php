@@ -73,7 +73,7 @@ if (!empty($data)) {
                 <div class="rounded ">
                     <a href="<?php echo URLROOT; ?>/Wikis/showWikiCateg/<?php echo $categ->getId();?>">
                         <div class="relative h-full">
-                            <img class="w-full" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($categ->getImage()); ?>" alt="Sunset in the mountains">
+                            <img class="w-full" src="<?= URLROOT ?>/img/<?php echo ($categ->getImage()); ?>" alt="Sunset in the mountains">
                             <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
                             <a href="<?php echo URLROOT; ?>/Wikis/showWikiCateg/<?php echo $categ->getId();?>">
                                 <div class="absolute w-full bottom-0 left-0 bg-black  px-4 py-4 text-white text-md text-center hover:bg-white hover:text-black transition duration-500 ease-in-out">
@@ -99,7 +99,7 @@ if (!empty($data)) {
                 <div class="rounded overflow-hidden shadow-lg">
                     <a href="<?php echo URLROOT; ?>/Wikis/showSingle/<?php echo $wiki->getId();?>">
                         <div class="relative">
-                            <img class="w-full" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($wiki->getImage()); ?>" alt="Sunset in the mountains">
+                            <img class="w-full" src="<?= URLROOT ?>/img/<?php echo ($wiki->getImage()); ?>" alt="Sunset in the mountains">
                             <div class="hover:bg-transparent transition duration-300 absolute bottom-0 top-0 right-0 left-0 bg-gray-900 opacity-25"></div>
                             <a href="<?php echo URLROOT; ?>/Wikis/showSingle/<?php echo $wiki->getId();?>">
                                 <div class="absolute bottom-0 left-0 bg-black  px-4 py-2 text-white text-sm hover:bg-white hover:text-black transition duration-500 ease-in-out">

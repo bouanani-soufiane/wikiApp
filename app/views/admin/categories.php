@@ -97,7 +97,7 @@ if (!empty($data)) {
                             <span class="text-[13px] font-medium"><?php echo $categ->getId();?></span>
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
-                            <img class="w-full" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($categ->getImage()); ?>" alt="image">
+                            <img class="w-full" src="<?= URLROOT ?>/img/<?php echo ($categ->getImage()); ?>" alt="image">
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
                             <span class="text-[13px] font-medium "><?php echo $categ->getName();?></span>

@@ -12,6 +12,28 @@ class Categories extends Controller {
     }
     public function create(){
         if (isset($_POST["addCategorie"])) {
+            if (isset($_FILES['categorieImage'])) {
+                $uploadedFile = $_FILES['categorieImage'];
+                $name = $uploadedFile['name'];
+                $size = $uploadedFile['size'];
+                $tmp_name = $uploadedFile['tmp_name'];
+                $error = $uploadedFile['error'];
+
+                $imgName = uploadImage($name, $tmp_name, $size, $error);
+                if (is_int($imgName)) {
+                    switch ($imgName) {
+                        case 1:
+                            echo 'Sorry your file is too large. (max 10mb)';
+                            break;
+                        case 2:
+                            echo 'Unsupported format. (jpg, jpeg, png, webp)';
+                            break;
+                        default:
+                            echo 'Unkown error occured';
+                            break;
+                    }
+                }
+            } else $imgName = null;
             if ($_POST['CategorieName'] == ' ') {
                 $name_error = 'Invalid Category Name';
             } else {
@@ -19,9 +41,7 @@ class Categories extends Controller {
             }
             if ($name_error == '') {
                 $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
-                $tmp_name = $_FILES['categorieImage']['tmp_name'];
-                $imageName = file_get_contents($tmp_name);
-                $this->categoryModel->getCategory()->setImage($imageName);
+                $this->categoryModel->getCategory()->setImage($imgName);
                 if ($this->categoryModel->create($this->categoryModel->getCategory())) {
                     $this->view('admin/categories');
                 } else {
@@ -47,6 +67,28 @@ class Categories extends Controller {
     }
     public function edit(){
         if(isset($_POST['editCategorie'])){
+            if (isset($_FILES['categorieImage'])) {
+                $uploadedFile = $_FILES['categorieImage'];
+                $name = $uploadedFile['name'];
+                $size = $uploadedFile['size'];
+                $tmp_name = $uploadedFile['tmp_name'];
+                $error = $uploadedFile['error'];
+
+                $imgName = uploadImage($name, $tmp_name, $size, $error);
+                if (is_int($imgName)) {
+                    switch ($imgName) {
+                        case 1:
+                            echo 'Sorry your file is too large. (max 10mb)';
+                            break;
+                        case 2:
+                            echo 'Unsupported format. (jpg, jpeg, png, webp)';
+                            break;
+                        default:
+                            echo 'Unkown error occured';
+                            break;
+                    }
+                }
+            } else $imgName = null;
             if ($_POST['CategorieName'] == ' ') {
                 $error_categ = 'Invalid Category Name';
             } else {
@@ -55,14 +97,10 @@ class Categories extends Controller {
             if ($error_categ == '') {
                 $this->categoryModel->getCategory()->setId(trim($_POST['idCateg']));
                 $this->categoryModel->getCategory()->setName(trim($_POST['CategorieName']));
-                if ($_FILES['categorieImage']['size'] > 0) {
-                    $tmp_name = $_FILES['categorieImage']['tmp_name'];
-                    $imageName = file_get_contents($tmp_name);
-                    $this->categoryModel->getCategory()->setImage($imageName);
-                }
-//                $tmp_name = $_FILES['categorieImage']['tmp_name'];
-//                $imageName = file_get_contents($tmp_name);
-//                $this->categoryModel->getCategory()->setImage($imageName);
+
+                $this->categoryModel->getCategory()->setImage($imgName);
+
+
                 if ($this->categoryModel->edit($this->categoryModel->getCategory())) {
                     $this->view('admin/categories');
                 } else {
