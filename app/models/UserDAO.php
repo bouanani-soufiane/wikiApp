@@ -1,102 +1,89 @@
 <?php
-require_once __DIR__.'./entities/User.php';
+require_once __DIR__ . './entities/User.php';
 
 class UserDAO
 {
-    private $conn;
-    private User $user;
+    private PDO $conn;
 
     public function __construct()
     {
         $this->conn = Database::getInstance()->getConnection();
-        $this->user = new User();
-    }
-    public function getUser()
-    {
-        return $this->user;
-    }
-    public function setUser($user)
-    {
-        $this->user = $user;
-        return $this;
     }
 
-    public function selectLastUser()
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM user ORDER BY userId DESC LIMIT 1");
+    public function selectLastUser(): ?User {
+        $query = "SELECT * FROM user ORDER BY userId DESC LIMIT 1";
+        $statement = $this->conn->prepare($query);
+        $statement->execute();
 
-        $stmt->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result) {
+            $user = new User();
+            $user->setId($result['userId'])
+                ->setName($result['userName'])
+                ->setEmail($result['email'])
+                ->setPassword($result['password'])
+                ->setRole($result['role']);
 
-        return $result;
-    }
-    public function verifyEmail($email)
-    {
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
-        $stmt->bindParam(':email', $email);
-
-        $stmt->execute();
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result == false) {
-            return true;
-        } else {
-            return false;
+            return $user;
         }
+
+        return null;
     }
-    public function register(User $user)
+
+    public function verifyEmail(string $email): bool
+    {
+        $query = "SELECT * FROM user WHERE email = :email";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
+        return $statement->fetch(PDO::FETCH_ASSOC) === false;
+    }
+
+    public function register(User $user): bool
     {
         $name = $user->getName();
         $email = $user->getEmail();
         $password = password_hash($user->getPassword(), PASSWORD_DEFAULT);
         $role = $user->getRole();
-        if ($this->verifyEmail($email) == true) {
-            $stmt = $this->conn->prepare("INSERT INTO user (userName, email, password, role) VALUES (:name, :email, :password, :role)");
 
-            $stmt->bindParam(':name', $name);
-            $stmt->bindParam(':email', $email);
-            $stmt->bindParam(':password', $password);
-            $stmt->bindParam(':role', $role);
-
-            $stmt->execute();
+        if ($this->verifyEmail($email)) {
+            $query = "INSERT INTO user (userName, email, password, role) VALUES (:name, :email, :password, :role)";
+            $statement = $this->conn->prepare($query);
+            $statement->bindParam(':name', $name);
+            $statement->bindParam(':email', $email);
+            $statement->bindParam(':password', $password);
+            $statement->bindParam(':role', $role);
+            $statement->execute();
             return true;
-        } else {
-            return false;
         }
+        return false;
     }
-    public function verifyUser(User $user)
+
+    public function verifyUser(User $user): array|bool
     {
         $email = $user->getEmail();
         $password = $user->getPassword();
-        $role = $user->getRole();
 
-        $stmt = $this->conn->prepare("SELECT * FROM user WHERE email = :email");
+        $query = "SELECT * FROM user WHERE email = :email";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':email', $email);
+        $statement->execute();
 
-        $stmt->bindParam(':email', $email);
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
 
-        $stmt->execute();
-
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        $validation = false;
-
-        if ($result != false) {
-            $validation = true;
-        }
-
-        if ($validation && password_verify($password, $result['password'])) {
+        if ($result && password_verify($password, $result['password'])) {
             return $result;
-        } else {
-            return false;
         }
+        return false;
     }
 
-    public function countUser() {
-        $query = "SELECT COUNT(*) AS uersCount FROM user where role = 'author'";
+    public function countUser(): int
+    {
+        $query = "SELECT COUNT(*) AS usersCount FROM user WHERE role = 'author'";
         $statement = $this->conn->prepare($query);
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
-        return $result->uersCount;
+        return (int)$result->usersCount;
     }
 }

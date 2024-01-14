@@ -1,49 +1,41 @@
 <?php
-require_once __DIR__.'./entities/WikiTag.php';
+require_once __DIR__ . './entities/WikiTag.php';
 
 class WikiTagDAO
 {
-    private $conn;
-    private WikiTag $wikiTag;
+    private PDO $conn;
 
     public function __construct()
     {
         $this->conn = Database::getInstance()->getConnection();
-        $this->wikiTag = new WikiTag();
     }
 
-    public function getWikiTag(): WikiTag
+    public function create(WikiTag $wikiTag): void
     {
-        return $this->wikiTag;
-    }
-
-    public function setWikiTag(WikiTag $wikiTag): self
-    {
-        $this->wikiTag = $wikiTag;
-        return $this;
-    }
-
-    public function create(WikiTag $wikiTag)
-    {
-
         $idTag = $wikiTag->getTag()->getId();
         $idWiki = $wikiTag->getWiki()->getId();
 
-        $stmt = $this->conn->prepare("INSERT INTO  wikitag (tagId,wikiId) VALUES (:tagId,:wikiId)");
-
-        $stmt->bindParam(':tagId', $idTag);
-        $stmt->bindParam(':wikiId', $idWiki);
-
+        $stmt = $this->conn->prepare("INSERT INTO wikitag (tagId, wikiId) VALUES (:tagId, :wikiId)");
+        $stmt->bindParam(':tagId', $idTag, PDO::PARAM_INT);
+        $stmt->bindParam(':wikiId', $idWiki, PDO::PARAM_INT);
         $stmt->execute();
     }
 
-    public function delete($tagIds, $idWiki){
-        $ids = implode(',', $tagIds);
-        $stmt = $this->conn->prepare("DELETE FROM wikitag WHERE wikiId = :idWiki AND tagId IN ({$ids})");
-        $stmt->bindParam(':idWiki', $idWiki);
+    public function delete(array $tagIds, int $idWiki): void
+    {
+        if (empty($tagIds)) {
+            return;
+        }
+
+        $placeholders = implode(',', array_fill(0, count($tagIds), '?'));
+        $query = "DELETE FROM wikitag WHERE wikiId = ? AND tagId IN ($placeholders)";
+        $stmt = $this->conn->prepare($query);
+
+        $stmt->bindValue(1, $idWiki, PDO::PARAM_INT);
+        foreach ($tagIds as $index => $tagId) {
+            $stmt->bindValue($index + 2, $tagId, PDO::PARAM_INT);
+        }
+
         $stmt->execute();
     }
-
-
-
 }

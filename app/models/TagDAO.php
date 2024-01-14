@@ -1,83 +1,85 @@
 <?php
-require_once __DIR__.'./entities/Tag.php';
+require_once __DIR__ . './entities/Tag.php';
 
 class TagDAO
 {
-    private $conn;
-    private Tag $tag;
+    private PDO $conn;
+
     public function __construct()
     {
         $this->conn = Database::getInstance()->getConnection();
-        $this->tag = new Tag();
     }
-    public function getTag(): Tag
+
+    public function showTags(): array
     {
-        return $this->tag;
-    }
-    public function setTag($tag)
-    {
-        $this->tag = $tag;
-        return $this;
-    }
-    public function showTags()
-    {
-        $query = "SELECT * FROM tag order by tagId desc";
+        $query = "SELECT * FROM tag ORDER BY tagId DESC";
         $statement = $this->conn->prepare($query);
         $statement->execute();
-        $tags = array();
+
+        $tags = [];
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $tag = new Tag();
-            $tag->setId($row['tagId']);
-            $tag->setName($row['tagName']);
-            array_push($tags, $tag);
+            $tag->setId($row['tagId'])
+                ->setName($row['tagName']);
+
+            $tags[] = $tag;
         }
         return $tags;
     }
-    public function create(Tag $tag){
+
+    public function create(Tag $tag): bool
+    {
         $name = $tag->getName();
-        if ($this->verifyTag($name)){
-            $stmt = $this->conn->prepare("INSERT INTO tag (tagName) VALUES (:name)");
-            $stmt->bindParam(':name', $name);
-            $stmt->execute();
-            return true;
-        }else{
-            return false;
+
+        if ($this->verifyTag($name)) {
+            $query = "INSERT INTO tag (tagName) VALUES (:name)";
+            $statement = $this->conn->prepare($query);
+            $statement->bindParam(':name', $name);
+
+            return $statement->execute();
         }
+        return false;
     }
-    public function delete(Tag $tag){
+
+    public function delete(Tag $tag): void
+    {
         $id = $tag->getId();
-        $query = "DELETE FROM tag WHERE tagId = :Id";
+
+        $query = "DELETE FROM tag WHERE tagId = :id";
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->execute();
     }
-    public function edit(Tag $tag){
+
+    public function edit(Tag $tag): void
+    {
         $id = $tag->getId();
         $name = $tag->getName();
 
-        $query = "UPDATE tag SET tagName = :name WHERE tagId = :Id";
+        $query = "UPDATE tag SET tagName = :name WHERE tagId = :id";
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
         $statement->execute();
     }
-    public function countTag() {
+
+    public function countTag(): int
+    {
         $query = "SELECT COUNT(*) AS tagCount FROM tag";
         $statement = $this->conn->prepare($query);
         $statement->execute();
+
         $result = $statement->fetch(PDO::FETCH_OBJ);
-        return $result->tagCount;
+        return (int)$result->tagCount;
     }
-    public function verifyTag($tagName) {
-        $query = "SELECT * FROM tag WHERE tagName = :tag";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':tag',$tagName);
-        $stmt->execute();
-        $result = $stmt->fetch(PDO::FETCH_ASSOC);
-        if ($result == false) {
-            return true;
-        } else {
-            return false;
-        }
+
+    public function verifyTag(string $tagName): bool
+    {
+        $query = "SELECT * FROM tag WHERE tagName = :name";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':name', $tagName);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC) === false;
     }
 }

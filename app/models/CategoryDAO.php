@@ -1,109 +1,100 @@
 <?php
-require_once __DIR__.'./entities/Category.php';
+require_once __DIR__ . './entities/Category.php';
 
 class CategoryDAO
 {
-    private $conn;
-    private Category $category;
+    private PDO $conn;
+
     public function __construct()
     {
         $this->conn = Database::getInstance()->getConnection();
-        $this->category = new Category();
     }
-    public function getCategory(): Category
+
+    public function showCategories(): array
     {
-        return $this->category;
-    }
-    public function setCategory($category)
-    {
-        $this->category = $category;
-        return $this;
-    }
-    public function showCategories()
-    {
-        $query = "SELECT * FROM categorie order by createdAt , updatedAt desc ";
+        $query = "SELECT * FROM categorie ORDER BY createdAt, updatedAt DESC";
         $statement = $this->conn->prepare($query);
         $statement->execute();
-        $categories = array();
+
+        $categories = [];
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $category = new Category();
+            $category->setId($row['categorieId'])
+                ->setName($row['categorieName'])
+                ->setImage($row['categorieImage']);
 
-            $category->setId($row['categorieId']);
-            $category->setName($row['categorieName']);
-            $category->setImage($row['categorieImage']);
-
-            array_push($categories, $category);
+            $categories[] = $category;
         }
         return $categories;
     }
-    public function create(Category $category){
+
+    public function create(Category $category): void
+    {
         $name = $category->getName();
-        $categorieImage = $category->getImage();
-        if($categorieImage == null){
-            $categorieImage = "2922280_27002.jpg";
-        }
+        $image = $category->getImage() ?? "2922280_27002.jpg";
 
-
-
-        $stmt = $this->conn->prepare("INSERT INTO categorie (categorieName,categorieImage) VALUES (:name,:categorieImage)");
-        $stmt->bindParam(':name', $name);
-        $stmt->bindParam(':categorieImage', $categorieImage);
-        $stmt->execute();
-    }
-    public function delete(Category $category){
-        $id = $category->getId();
-        $query = "DELETE FROM categorie WHERE categorieId = :Id";
+        $query = "INSERT INTO categorie (categorieName, categorieImage) VALUES (:name, :image)";
         $statement = $this->conn->prepare($query);
-        $statement->bindParam(':Id', $id, PDO::PARAM_INT);
+        $statement->bindParam(':name', $name);
+        $statement->bindParam(':image', $image);
         $statement->execute();
     }
-    public function edit(Category $category)
+
+    public function delete(Category $category): void
+    {
+        $id = $category->getId();
+
+        $query = "DELETE FROM categorie WHERE categorieId = :id";
+        $statement = $this->conn->prepare($query);
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
+        $statement->execute();
+    }
+
+    public function edit(Category $category): void
     {
         $id = $category->getId();
         $name = $category->getName();
-        $categorieImage = $category->getImage();
-
+        $image = $category->getImage();
 
         $query = "UPDATE categorie SET categorieName = :name";
-
-        if ($categorieImage !== null) {
+        if ($image !== null) {
             $query .= ", categorieImage = :image";
         }
-
         $query .= " WHERE categorieId = :id";
 
         $statement = $this->conn->prepare($query);
         $statement->bindParam(':id', $id, PDO::PARAM_INT);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
-
-        if ($categorieImage !== null) {
-            $statement->bindParam(':image', $categorieImage, PDO::PARAM_LOB);
+        if ($image !== null) {
+            $statement->bindParam(':image', $image, PDO::PARAM_STR);
         }
-
         $statement->execute();
     }
 
-    public function countCateg() {
+    public function countCateg(): int
+    {
         $query = "SELECT COUNT(*) AS categCount FROM categorie";
         $statement = $this->conn->prepare($query);
         $statement->execute();
+
         $result = $statement->fetch(PDO::FETCH_OBJ);
-        return $result->categCount;
+        return (int)$result->categCount;
     }
-    public function showLastThreeCategories()
+
+    public function showLastThreeCategories(): array
     {
-        $query = "SELECT * FROM categorie ORDER BY categorie.categorieId DESC LIMIT 6";
+        $query = "SELECT * FROM categorie ORDER BY categorieId DESC LIMIT 3";
         $statement = $this->conn->prepare($query);
         $statement->execute();
-        $categories = array();
+
+        $categories = [];
         while ($row = $statement->fetch(PDO::FETCH_ASSOC)) {
             $category = new Category();
+            $category->setId($row['categorieId'])
+                ->setName($row['categorieName'])
+                ->setImage($row['categorieImage']);
 
-            $category->setId($row['categorieId']);
-            $category->setName($row['categorieName']);
-            $category->setImage($row['categorieImage']);
-
-            array_push($categories, $category);
+            $categories[] = $category;
         }
         return $categories;
     }
