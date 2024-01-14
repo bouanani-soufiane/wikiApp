@@ -4,79 +4,64 @@ let oldContent = content.innerHTML;
 
 searchBar.addEventListener("input", () => {
     let searchValue = searchBar.value;
+
     if (searchValue == "") {
         content.innerHTML = oldContent;
     } else {
-        let xhr = new XMLHttpRequest();
-        xhr.onload = (e) => {
-            if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
-                    let wiki = xhr.response;
-                    console.log(JSON.parse(wiki));
-                    searchWiki(searchValue, (wikiData) => {
-                        if (wikiData) {
-                            let wiki = JSON.parse(wikiData);
-
-                            console.log(wiki);
-                            showResults(wiki);
-                        } else {
-                            console.log("Failed to fetch wiki data");
-                        }
-                    });
+        searchWiki(searchValue)
+            .then((wikiData) => {
+                if (wikiData) {
+                    let wiki = JSON.parse(wikiData);
+                    console.log(wiki);
+                    showResults(wiki);
                 } else {
-                    console.error(xhr.statusText);
+                    console.log("Failed to fetch wiki data");
                 }
-            }
-        };
-        xhr.onerror = (e) => {
-            console.error(xhr.statusText);
-            alert("Failed to fetch wiki data. Please try again later.");
-
-        };
-        let data = {
-            search: searchValue,
-        };
-        data = JSON.stringify(data);
-        xhr.open("POST", "/wikiApp/public/wikis/getwikis", true);
-        xhr.send(data);
+            })
+            .catch((error) => {
+                alert("Failed to fetch wiki data. Please try again later.");
+            });
     }
 });
 
-function searchWiki(searchValue, callback) {
-    let xhr = new XMLHttpRequest();
-    xhr.onload = (e) => {
-        if (xhr.readyState === 4) {
-            if (xhr.status === 200) {
-                let data = xhr.response;
-                callback(data);
-            } else {
-                console.error(xhr.statusText);
-                callback(null);
+function searchWiki(searchValue) {
+    return new Promise((resolve, reject) => {
+        let xhr = new XMLHttpRequest();
+        xhr.onload = () => {
+            if (xhr.readyState === 4) {
+                if (xhr.status === 200) {
+                    resolve(xhr.response);
+                } else {
+                    reject(xhr.statusText);
+                }
             }
-        }
-    };
-    xhr.onerror = (e) => {
-        console.error(xhr.statusText);
-        return xhr.statusText;
-    };
-
-    let data = {
-        search: searchValue,
-    };
-
-    data = JSON.stringify(data);
-
-    xhr.open("POST", "/wikiApp/wikis/getwikis", true);
-    xhr.send(data);
+        };
+        xhr.onerror = () => {
+            reject(xhr.statusText);
+        };
+        xhr.open("POST", "/wikiApp/public/wikis/getwikis", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.send(JSON.stringify({ search: searchValue }));
+    });
 }
+
+
 
 function showResults(wikis) {
     let searchValue = searchBar.value;
+    if (!wikis || wikis.length === 0) {
+        content.innerHTML = `<p class="text-center text-3xl text-gray-500 mb-6 mt-10 font-['font-serif']">No data found for <b>'${searchValue}'</b></p>
+<div class="flex justify-center bg-cyan-300">
+                <img class="max-w-xs" src="http://localhost/wikiApp/img/no-data.avif">
 
+</div>
+`;
+        return;
+    }
     content.innerHTML = `
     <div class="mt-4 flex items-center justify-center ">
         <div class="flex space-x-4 ">
-            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl font-['font-serif']">
                 wikis par titre</h1>
         </div>
     </div>
@@ -138,7 +123,7 @@ function showResults(wikis) {
     </div>
     <div class="mt-4 flex items-center justify-center ">
         <div class="flex space-x-4 ">
-            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+            <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl font-['font-serif']">
                 category par Name</h1>
         </div>
     </div>

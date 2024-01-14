@@ -25,19 +25,9 @@ function processBack($value)
     return str_replace('&#10;', "<br>", $value);
 }
 
-function hashPassword($value)
-{
-    return password_hash($value, PASSWORD_DEFAULT);
-}
-
-function verifyPassword($value, $hash)
-{
-    return password_verify($value, $hash);
-}
-
 function goToPage($page)
 {
-    $url = CONTROOT . $page;
+    $url = URLROOT . $page;
     header("Location:{$url}");
     die();
 }
@@ -92,6 +82,6 @@ function uploadImage($name, $tmp_name, $size, $error)
             }
         }
     } else {
-        return 3;
+        return null;
     }
 }

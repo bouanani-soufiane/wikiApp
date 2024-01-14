@@ -23,7 +23,7 @@ class UserDAO
 
     public function selectLastUser()
     {
-        $stmt = $this->conn->prepare("SELECT * FROM user ORDER BY userId LIMIT 1");
+        $stmt = $this->conn->prepare("SELECT * FROM user ORDER BY userId DESC LIMIT 1");
 
         $stmt->execute();
 
@@ -99,5 +99,4 @@ class UserDAO
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result->uersCount;
     }
-
 }

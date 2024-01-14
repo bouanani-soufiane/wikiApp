@@ -18,6 +18,13 @@
                 <li>
                     <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/categories/categories">Categories</a>
                 </li>
+                <?php if (isset($_SESSION['userId']) && !isAdmin() )  : ?>
+
+                <li>
+                    <a class="text-white hover:text-gray-300" href="<?php echo URLROOT; ?>/pages/profile/<?php echo $_SESSION['userId']?>">Profile</a>
+                </li>
+                <?php endif; ?>
+
             </ul>
         </div>
 

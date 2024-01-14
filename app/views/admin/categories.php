@@ -84,8 +84,7 @@ if (!empty($data)) {
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">id</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">image</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Nom</th>
-                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">nbr wikies</th>
-                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left"><actions></actions></th>
+                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -97,15 +96,12 @@ if (!empty($data)) {
                             <span class="text-[13px] font-medium"><?php echo $categ->getId();?></span>
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
-                            <img class="w-full" src="<?= URLROOT ?>/img/<?php echo ($categ->getImage()); ?>" alt="image">
+                            <img class="rounded-b" src="<?= URLROOT ?>/img/<?php echo ($categ->getImage()); ?>"  width="180" height="100" alt="image">
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
                             <span class="text-[13px] font-medium "><?php echo $categ->getName();?></span>
                         </td>
 
-                        <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                            <span class="text-[13px] font-medium "><?php echo $categ->getId();?></span>
-                        </td>
                         <td class=" flex py-2 px-4 border-b border-b-gray-50 w-1/5">
                             <form method="post" class="mx-2" action="<?php echo URLROOT?>/Categories/delete">
                                 <div class="my-2">

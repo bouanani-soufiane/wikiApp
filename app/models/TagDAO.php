@@ -21,7 +21,7 @@ class TagDAO
     }
     public function showTags()
     {
-        $query = "SELECT * FROM tag";
+        $query = "SELECT * FROM tag order by tagId desc";
         $statement = $this->conn->prepare($query);
         $statement->execute();
         $tags = array();
@@ -35,9 +35,14 @@ class TagDAO
     }
     public function create(Tag $tag){
         $name = $tag->getName();
-        $stmt = $this->conn->prepare("INSERT INTO tag (tagName) VALUES (:name)");
-        $stmt->bindParam(':name', $name);
-        $stmt->execute();
+        if ($this->verifyTag($name)){
+            $stmt = $this->conn->prepare("INSERT INTO tag (tagName) VALUES (:name)");
+            $stmt->bindParam(':name', $name);
+            $stmt->execute();
+            return true;
+        }else{
+            return false;
+        }
     }
     public function delete(Tag $tag){
         $id = $tag->getId();
@@ -62,5 +67,17 @@ class TagDAO
         $statement->execute();
         $result = $statement->fetch(PDO::FETCH_OBJ);
         return $result->tagCount;
+    }
+    public function verifyTag($tagName) {
+        $query = "SELECT * FROM tag WHERE tagName = :tag";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':tag',$tagName);
+        $stmt->execute();
+        $result = $stmt->fetch(PDO::FETCH_ASSOC);
+        if ($result == false) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

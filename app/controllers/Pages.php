@@ -13,7 +13,17 @@ class Pages extends Controller {
         $this->view('pages/index',['categs'=>$categs , 'wiki'=>$wiki]);
     }
 
-    public function about(){
-        $this->view('pages/about');
+    public function profile($id = null){
+        if(!isset($id) || !isLogged() || isAdmin()){
+            header("location: http://localhost/wikiApp");
+        }
+        $wikis = $this->wikiModel->showWikiAuthor($id);
+        $tags = $this->tagModel->showTags();
+
+        $this->view('users/profile',['wiki'=>$wikis ,'tags'=>$tags ]);
+    }
+    public function notfound()
+    {
+        $this->view('pages/404');
     }
 }

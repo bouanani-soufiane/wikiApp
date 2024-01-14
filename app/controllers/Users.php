@@ -41,7 +41,7 @@ class Users extends Controller {
                     $_SESSION['userName'] = $rowUser['userName'];
                     $_SESSION['userEmail'] = $rowUser['email'];
                     $_SESSION['userRole'] = $rowUser['role'];
-                    $this->view('users/login');
+                    $this->view('pages/index');
                 } else {
                     $error_user = [
                         'email_error' => 'email already exist',
@@ -104,7 +104,7 @@ class Users extends Controller {
                     }
                 }
                 $error_user = [
-                    'email_error' => 'user not found',
+                    'email_error' => 'User Not Found <i class="ri-close-circle-fill"></i>',
                     'password_error' => $password_error
                 ];
                 $this->view('users/login', $error_user);

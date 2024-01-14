@@ -11,12 +11,18 @@ class Wikis extends Controller {
         $this->tagModel = $this->model('TagDAO');
     }
     public function index(){
+        if(!isLogged() || !isAdmin()){
+            header("location: http://localhost/wikiApp");
+        }
         $wiki = $this->wikiModel->showWiki();
         $tags = $this->tagModel->showTags();
         $countWiki = $this->wikiModel->countWiki();
         $this->view('admin/wikis',['wiki'=>$wiki , 'countWiki'=>$countWiki]);
     }
     public function create(){
+        if(!isLogged() || isAdmin()){
+            header("location: http://localhost/wikiApp");
+        }
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
         $this->view('users/author_post',['categs'=>$categs , 'tags'=>$tags]);
@@ -98,15 +104,27 @@ class Wikis extends Controller {
                    header('location: http://localhost/wikiApp');
        }
     }
-    public function showSingle($id){
+    public function showSingle($id = null){
+        if($id == null){
+            header('location: http://localhost/wikiApp');
+
+        }
         $wiki = $this->wikiModel->showSingleWiki($id);
         $this->view('pages/singleWiki',['wiki'=>$wiki ]);
     }
-    public function showWikiCateg($id){
+    public function showWikiCateg($id = null){
+        if($id == null){
+            header('location: http://localhost/wikiApp');
+
+        }
         $wiki = $this->wikiModel->showWikiCateg($id);
         $this->view('pages/WikiCateg',['wiki'=>$wiki ]);
     }
-    public function edit($id){
+    public function edit($id = null){
+        if($id == null || isAdmin() || !isLogged()){
+            header('location: http://localhost/wikiApp');
+
+        }
         $wiki = $this->wikiModel->showSingleWiki($id);
         $categs = $this->categoryModel->showCategories();
         $tags = $this->tagModel->showTags();
@@ -175,7 +193,7 @@ class Wikis extends Controller {
                     $error_wiki = [
                         'title_error' => 'Failed to update wiki.'
                     ];
-                    header('location: http://localhost/wikiApp/?' . http_build_query($error_wiki));
+                    header('location: http://localhost/wikiApp/pages/profile/'.$_SESSION['userId'].'?' );
                     exit;
                 }
             } else {
@@ -184,14 +202,17 @@ class Wikis extends Controller {
                     'desc_error' => $desc_error,
                     'content_error' => $content_error
                 ];
-                header('location: http://localhost/wikiApp/?' . http_build_query($error_wiki));
+                header('location: http://localhost/wikiApp/?');
                 exit;
             }
+        }else{
+                header("location: http://localhost/wikiApp");
+
         }
     }
     public function delete($id){
         $this->wikiModel->delete($id);
-        header('location: http://localhost/wikiApp/');
+        header('location: http://localhost/wikiApp/pages/profile/'.$_SESSION['userId'].'?' );
 
     }
     public function archive($id){

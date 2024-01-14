@@ -31,7 +31,7 @@ if (!empty($data)) {
 <!-- Categories Section -->
 <div class="mt-4 flex items-center justify-center ">
     <div class="flex space-x-4 ">
-        <h1 class="block font-medium px-2 text-5xl sm:text-5xl md:text-6xl lg:text-5xl">
+        <h1 class="block text-5xl text-center font-['font-serif'] font-extrabold p-10">
             Explorez Toutes Les Catégories</h1>
     </div>
 </div>

@@ -7,6 +7,9 @@ if (!empty($data)) {
     if (!empty($data['countTag'])) {
     $countTag = $data['countTag'];
     }
+    if (!empty($data['error_tag'])) {
+        $error_tag = $data['error_tag'];
+    }
 }
 ?>
 <div class="w-full grid grid-cols-1  gap-6 mb-6">
@@ -40,6 +43,7 @@ if (!empty($data)) {
                 <div id="crud-modal" tabindex="-1" aria-hidden="true" class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
                     <div class="relative p-4 w-full max-w-md max-h-full">
                         <div class="relative  rounded-lg shadow  bg-gray-800">
+
                             <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
                                 <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
                                     Create New Tag
@@ -75,8 +79,7 @@ if (!empty($data)) {
                 <tr>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left rounded-tl-md rounded-bl-md">id</th>
                     <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">Nom</th>
-                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">nbr wikies</th>
-                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left"><actions></actions></th>
+                    <th class="text-[12px] uppercase tracking-wide font-medium text-gray-400 py-2 px-4 bg-gray-50 text-left">actions</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -87,9 +90,6 @@ if (!empty($data)) {
                         </td>
                         <td class="py-2 px-4 border-b border-b-gray-50 w-2/5">
                             <span class="text-[13px] font-medium "><?php echo $tag->getName();?></span>
-                        </td>
-                        <td class="py-2 px-4 border-b border-b-gray-50 w-1/5">
-                            <span class="text-[13px] font-medium "><?php echo $tag->getId();?></span>
                         </td>
                         <td class=" flex py-2 px-4 border-b border-b-gray-50 w-1/5">
                             <form method="post" class="mx-2" action="<?php echo URLROOT?>/Tags/delete">

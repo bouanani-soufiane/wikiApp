@@ -54,3 +54,11 @@ FROM
     wiki
         LEFT JOIN wikiTag ON wiki.wikiId = wikiTag.wikiId
         LEFT JOIN tag ON wikiTag.tagId = tag.tagId;
+
+DELIMITER //
+CREATE TRIGGER update_categorie_updatedAt
+    BEFORE UPDATE ON categorie
+    FOR EACH ROW
+    SET NEW.updatedAt = CURRENT_TIMESTAMP;
+//
+DELIMITER ;

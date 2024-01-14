@@ -55,23 +55,21 @@ if (!empty($data)) {
                         <tbody class="text-sm divide-y divide-gray-100">
                         <?php foreach ($wikis as $wiki) : ?>
                             <tr>
-                                <td class="p-2 whitespace-nowrap">
+                                <td class="p-2 ">
                                     <div class="flex items-center">
                                         <div class="w-10 h-10 flex-shrink-0 mr-2 sm:mr-3">
-
-                                            <img class="rounded-b" src="data:image/jpg;charset=utf8;base64,<?php echo base64_encode($wiki->getImage()); ?>"  width="80" height="100" alt="image">
-
+                                            <img class="rounded-b" src="<?= URLROOT ?>/img/<?php echo ($wiki->getImage()); ?>"  width="80" height="100" alt="image">
                                         </div>
                                         <div class="font-medium text-gray-800"></div>
                                     </div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
+                                <td class="p-2 ">
                                     <div class="text-left"><?php echo mb_strimwidth($wiki->getTitre(), 0, 100, '...');?></div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
-                                    <div class="text-left font-medium text-green-500"><?php echo mb_strimwidth($wiki->getContent(), 0, 250, '...');?></div>
+                                <td class="p-2 ">
+                                    <div class="text-left font-medium "><?php echo mb_strimwidth($wiki->getContent(), 0, 250, '...');?></div>
                                 </td>
-                                <td class="p-2 whitespace-nowrap">
+                                <td class="p-2 ">
                                     <div class="text-left font-medium text-green-500">
 
                                     <?php
@@ -84,9 +82,6 @@ if (!empty($data)) {
 
 
                                     ?>
-
-
-
 
                                     </div>
                                 </td>

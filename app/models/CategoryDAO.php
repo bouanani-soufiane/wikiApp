@@ -21,7 +21,7 @@ class CategoryDAO
     }
     public function showCategories()
     {
-        $query = "SELECT * FROM categorie";
+        $query = "SELECT * FROM categorie order by createdAt , updatedAt desc ";
         $statement = $this->conn->prepare($query);
         $statement->execute();
         $categories = array();
@@ -39,6 +39,12 @@ class CategoryDAO
     public function create(Category $category){
         $name = $category->getName();
         $categorieImage = $category->getImage();
+        if($categorieImage == null){
+            $categorieImage = "2922280_27002.jpg";
+        }
+
+
+
         $stmt = $this->conn->prepare("INSERT INTO categorie (categorieName,categorieImage) VALUES (:name,:categorieImage)");
         $stmt->bindParam(':name', $name);
         $stmt->bindParam(':categorieImage', $categorieImage);

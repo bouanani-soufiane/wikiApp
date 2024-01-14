@@ -5,12 +5,18 @@ class Categories extends Controller {
         $this->categoryModel = $this->model('CategoryDAO');
     }
     public function index(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         $categs = $this->categoryModel->showCategories();
         $countCateg = $this->categoryModel->countCateg();
 
         $this->view('admin/categories',['categs'=>$categs ,'countCateg'=>$countCateg]);
     }
     public function create(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         if (isset($_POST["addCategorie"])) {
             if (isset($_FILES['categorieImage'])) {
                 $uploadedFile = $_FILES['categorieImage'];
@@ -59,6 +65,10 @@ class Categories extends Controller {
         }
     }
     public function delete(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
+
         if (isset($_POST["deleteCateg"])) {
             $this->categoryModel->getCategory()->setId($_POST['idCateg']);
             $this->categoryModel->delete($this->categoryModel->getCategory());
@@ -66,6 +76,9 @@ class Categories extends Controller {
         }
     }
     public function edit(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         if(isset($_POST['editCategorie'])){
             if (isset($_FILES['categorieImage'])) {
                 $uploadedFile = $_FILES['categorieImage'];
@@ -118,6 +131,9 @@ class Categories extends Controller {
         }
     }
     public function countCateg(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         $this->categoryModel->countCateg();
     }
 

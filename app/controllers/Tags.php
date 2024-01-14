@@ -4,6 +4,9 @@ class Tags extends Controller {
         $this->tagModel = $this->model('TagDAO');
     }
     public function index(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         $tags = $this->tagModel->showTags();
         $countTag = $this->tagModel->countTag();
         $this->view('admin/tags',['tags'=>$tags , 'countTag'=>$countTag]);
@@ -18,7 +21,7 @@ class Tags extends Controller {
             if ($name_error == '') {
                 $this->tagModel->getTag()->setName(trim($_POST['tagName']));
                 if ($this->tagModel->create($this->tagModel->getTag())) {
-                    $this->view('admin/tag');
+                    header('location: http://localhost/wikiApp/tags');
                 } else {
                     $error_tag = [
                         'name_error' => $name_error,
@@ -33,8 +36,10 @@ class Tags extends Controller {
                 $this->view('admin/dashboard', $error_tag);
             }
         }
-    }
-    public function delete(){
+    }    public function delete(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         if (isset($_POST["deleteTag"])) {
             $this->tagModel->getTag()->setId($_POST['idTag']);
             $this->tagModel->delete($this->tagModel->getTag());
@@ -42,6 +47,9 @@ class Tags extends Controller {
         }
     }
     public function edit(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         if(isset($_POST['editTag'])){
             if ($_POST['tagName'] == ' ') {
                 $error_tag = 'Invalid Tag Name';
@@ -68,6 +76,9 @@ class Tags extends Controller {
         }
     }
     public function countTag(){
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         $this->tagModel->countTag();
     }
 

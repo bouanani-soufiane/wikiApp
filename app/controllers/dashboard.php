@@ -11,6 +11,11 @@ class Dashboard extends Controller {
 
     }
     public function index(){
+
+
+        if (!isAdmin()) {
+            goToPage('/pages/notfound');
+        }
         $categs = $this->categoryModel->showCategories();
         $wikiCount = $this->wikiModel->countWiki();
         $usersCount = $this->userModel->countUser();

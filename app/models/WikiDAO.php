@@ -25,6 +25,9 @@ class WikiDAO
         $description = $wiki->getDescription();
         $wikiContent = $wiki->getContent();
         $wikiImage = $wiki->getImage();
+        if ($wiki->getImage() == null) {
+            $wikiImage = "2922280_27002.jpg";
+        }
         $idCategorie = $wiki->getCategory()->getId();
         $idUser = $wiki->getUser()->getId();
 
@@ -206,7 +209,28 @@ class WikiDAO
         }
         return $wikis;
     }
+    public function showWikiAuthor($id)
+    {
+        $stmt = $this->conn->prepare("SELECT wiki.*, categorie.categorieName FROM wiki LEFT JOIN categorie ON wiki.idCategorie = categorie.categorieId where idUser =:id  ORDER BY wiki.createdAt DESC;");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
 
+        $stmt->execute();
+        $wikis = array();
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+            $wiki = new Wiki();
+            $wiki->setId($row['wikiId']);
+            $wiki->setTitre($row['wikiTitre']);
+            $wiki->setDescription($row['description']);
+            $wiki->setContent($row['wikiContent']);
+            $wiki->setImage($row['wikiImage']);
+            $wiki->setCreatedAt($row['createdAt']);
+            $wiki->setIsArchived($row['isArchived']);
+            $wiki->getCategory()->setName($row['categorieName']);
+            $wiki->getUser()->setId($row['idUser']);
+            array_push($wikis, $wiki);
+        }
+        return $wikis;
+    }
     public function searchWiki($wikiTitre){
 
 

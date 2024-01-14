@@ -5,15 +5,24 @@ if (!empty($data)) {
     if (isset($data['wiki'])) {
         $wikiData = $data['wiki'];
         list($wiki, $wikiTags) = $wikiData;
+    }else{
+            header("location: http://localhost/wikiApp");
+
     }
 }
 ?>
 <div class="max-w-screen-lg mx-auto p-5 sm:p-10 md:p-16">
 
-<?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $wiki->getUser()->getId() ) : ?>
-    <a href="<?php echo URLROOT; ?>/Wikis/edit/<?php echo $wiki->getId();?>"><i class="ri-edit-box-fill text-3xl"></i></a>
-    <a href="<?php echo URLROOT; ?>/Wikis/delete/<?php echo $wiki->getId();?>"><i class="ri-delete-bin-2-fill text-3xl"></i></a>
-<?php endif; ?>
+    <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] === $wiki->getUser()->getId() ) : ?>
+        <a href="<?php echo URLROOT; ?>/Wikis/edit/<?php echo $wiki->getId();?>" class="text-green-500 hover:text-green-700">
+            <i class="ri-edit-box-fill text-3xl"></i> edit
+        </a>
+    <br>
+        <a href="<?php echo URLROOT; ?>/Wikis/delete/<?php echo $wiki->getId();?>" class="text-red-500 hover:text-red-700">
+            <i class="ri-delete-bin-2-fill text-3xl"></i> delete
+        </a>
+
+    <?php endif; ?>
 
     <div class="mb-10 rounded overflow-hidden flex flex-col mx-auto text-center">
         <a href="#" class="max-w-3xl mx-auto space-y-4 text-xl sm:text-5xl mb-6  font-semibold inline-block hover:text-indigo-600 transition duration-500 ease-in-out inline-block mb-6"><?php echo $wiki->getTitre(); ?></a>
